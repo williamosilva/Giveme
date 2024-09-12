@@ -4,44 +4,25 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import Photo from "../../assets/perfil.jpg";
 import Background from "../../assets/gato.jpg";
+import Register from "./Register";
+import Login from "./Login";
+import { useState } from "react";
 
-export default function Login() {
+export default function AuthPage() {
+  const [isLogin, setIsLogin] = useState(true);
+
+  function handleClick() {
+    setIsLogin(!isLogin);
+  }
+
   return (
     <main className="w-[1000px] relative h-[700px] gap-0 p-3 bg-white flex items-center justify-center rounded-3xl shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px]">
-      <section className="w-[50%] relative h-full flex flex-col items-start justify-between p-12">
-        <div className="bg-[#4747FF] w-20 h-20 rounded-xl flex items-center justify-center text-white font-medium ">
-          Logo
-        </div>
-        <div className="flex flex-col justify-start gap-3  mb-12">
-          <h1
-            className="text-6xl font-black text-neutral-900
-          "
-          >
-            Registrar
-          </h1>
-          <div className="flex gap-1">
-            <p className="text-base text-neutral-400">Já é registrado?</p>{" "}
-            <p className="text-base text-[#4747FF] font-bold tracking-tight cursor-pointer hover:underline">
-              Entrar agora
-            </p>
-          </div>
-        </div>
-        <div className="w-full gap-12 flex flex-col">
-          <TextFieldGiveme
-            placeholder="Insira seu usuário..."
-            title="Usuário"
-            icon={<PersonOutlineOutlinedIcon />}
-          />
-          <TextFieldGiveme
-            placeholder="Insira seu email..."
-            title="Email"
-            icon={<EmailOutlinedIcon />}
-          />
-        </div>
-        <div className="w-full">
-          <ButtonGiveme buttonText="Registrar" />
-        </div>
-      </section>
+      {isLogin ? (
+        <Login registerRedirect={handleClick} />
+      ) : (
+        <Register loginRedirect={handleClick} />
+      )}
+
       <section className="flex-1  w-[50%] relative h-full  rounded-2xl overflow-hidden block">
         <img src={Background} className="object-cover h-full w-full " />
       </section>
