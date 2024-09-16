@@ -10,9 +10,9 @@ export default function Register({
   loginRedirect: (event: React.MouseEvent<HTMLParagraphElement>) => void;
 }) {
   return (
-    <section className="w-[50%] relative h-full grid grid-rows-4 items-start justify-between p-12">
-      <div className="h-full flex items-center w-full">
-        <div className="bg-[#4747FF] w-20 h-20 rounded-xl flex items-center justify-center text-white font-medium">
+    <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between p-12">
+      <div className="h-full flex items-start w-full">
+        <div className="bg-[#4747FF] w-20 h-20 rounded-xl items-center flex justify-center text-white font-medium">
           Logo
         </div>
       </div>

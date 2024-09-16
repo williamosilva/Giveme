@@ -13,5 +13,83 @@
 
   font-family: "Poppins", sans-serif;
 
-  background-color: #dbdbff;
+  background: rgb(198, 198, 255);
+  background: -moz-linear-gradient(
+    301deg,
+    rgba(198, 198, 255, 1) 0%,
+    rgba(219, 219, 255, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    301deg,
+    rgba(198, 198, 255, 1) 0%,
+    rgba(219, 219, 255, 1) 100%
+  );
+  background: linear-gradient(
+    301deg,
+    rgba(198, 198, 255, 1) 0%,
+    rgba(219, 219, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c6c6ff",endColorstr="#dbdbff",GradientType=1);
+}
+
+html,
+html a {
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.blur-background {
+  background: radial-gradient(
+    circle,
+    rgba(23, 3, 252, 0.6) 0%,
+    transparent 70%
+  );
+  backdrop-filter: blur(100px); /* Aplica o Gaussian Blur */
+  filter: blur(10px); /* Complementa o blur */
+  position: absolute; /* Assegura que a posição é fixa para a animação */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.blur-background2 {
+  background: radial-gradient(
+    circle,
+    rgba(173, 3, 252, 0.6) 0%,
+    transparent 70%
+  );
+  backdrop-filter: blur(100px); /* Aplica o Gaussian Blur */
+  filter: blur(10px); /* Complementa o blur */
+  position: absolute; /* Assegura que a posição é fixa para a animação */
+  top: 70%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 0.1;
+  }
+  25% {
+    transform: scale(1.05) translate(-50%, -50%);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.1) translate(-50%, -50%);
+    opacity: 0.3;
+  }
+  75% {
+    transform: scale(1.05) translate(-50%, -50%);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 0.1;
+  }
+}
+
+.animate-grow {
+  animation: grow 10s ease-in-out infinite;
 }

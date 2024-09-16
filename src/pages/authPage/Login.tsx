@@ -10,7 +10,7 @@ export default function Login({
   registerRedirect: (event: React.MouseEvent<HTMLParagraphElement>) => void;
 }) {
   return (
-    <section className="w-[50%] relative h-full flex flex-col items-start justify-between p-12">
+    <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between p-12">
       <div className="bg-[#4747FF] w-20 h-20 rounded-xl flex items-center justify-center text-white font-medium">
         Logo
       </div>
@@ -33,8 +33,10 @@ export default function Login({
           icon={<EmailOutlinedIcon />}
         />
       </div>
-      <div className="w-full">
-        <ButtonGiveme buttonText="Registrar" />
+      <div className="w-full h-full flex items-center">
+        <div className="w-full">
+          <ButtonGiveme buttonText="Entrar" />
+        </div>
       </div>
     </section>
   );
