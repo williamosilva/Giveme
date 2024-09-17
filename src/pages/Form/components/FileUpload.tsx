@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { styled } from "@mui/system";
+import icon from "../../../assets/icon.png";
 
 const UploadContainer = styled(Box)<{ isDragging: boolean }>(
   ({ isDragging }) => ({
@@ -31,6 +32,7 @@ const UploadButton = styled(Button)({
   alignItems: "center",
   textAlign: "center",
   lineHeight: "1",
+  boxShadow: "0 0px 10px  rgba(26, 61, 220, 0.6)",
   verticalAlign: "middle",
   justifyContent: "center",
   "&:hover": {
@@ -80,16 +82,20 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileChange }) => {
         type="file"
         onChange={handleFileChange}
       />
+      <div className="w-20 h-20">
+        <img src={icon} alt="icon" className="w-full h-full object-contain" />
+      </div>
+
+      <Box sx={{ marginTop: "10px", color: "#4f4a70", fontSize: 16 }}>
+        {isDragging
+          ? "Solte o arquivo aqui"
+          : "Arraste ou clique para selecionar um arquivo"}
+      </Box>
       <label htmlFor="file-upload">
         <UploadButton variant="contained" component="span">
           Procurar Arquivo
         </UploadButton>
       </label>
-      <Box sx={{ marginTop: "10px", color: "#555" }}>
-        {isDragging
-          ? "Solte o arquivo aqui"
-          : "Arraste ou clique para selecionar um arquivo"}
-      </Box>
     </UploadContainer>
   );
 };

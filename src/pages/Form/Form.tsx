@@ -14,6 +14,7 @@ export default function Form() {
     <div className="flex justify-between items-center w-full h-full p-20">
       <div className="flex flex-col items-start w-full h-full justify-center">
         {/* <h1 className="font-semibold text-6xl mb-10">Giveme</h1> */}
+
         <h1
           className="font-normal font-Raleway leading-tight text-6xl text-transparent bg-clip-text animate-gradient"
           style={{
@@ -35,8 +36,8 @@ export default function Form() {
           de forma rápida
         </h1>
       </div>
-      <div className="w-full h-full flex justify-center items-center">
-        <Box sx={{ width: "300px", margin: "0 auto", textAlign: "center" }}>
+      <div className="w-full h-full flex justify-center items-center p-24">
+        <Box sx={{ width: "auto", margin: "0 auto", textAlign: "center" }}>
           {/* <Typography variant="h6" sx={{ marginBottom: "10px" }}>
             Upload de Arquivo
           </Typography> */}
