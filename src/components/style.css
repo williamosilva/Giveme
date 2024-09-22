@@ -1,0 +1,29 @@
+li {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #f9fafb;
+  z-index: 1;
+}
+
+li::after {
+  content: "";
+  position: absolute;
+  bottom: -130%;
+  border-radius: 0px;
+  right: 65%;
+  width: 150%;
+  rotate: 45deg;
+  height: 150%;
+  background-color: rgba(97, 127, 254, 1);
+  transition: all 0.3s ease;
+  z-index: -1;
+  opacity: 0;
+}
+
+li:hover::after {
+  bottom: -25%;
+  right: -30%;
+  opacity: 1;
+  border-radius: 100px;
+}

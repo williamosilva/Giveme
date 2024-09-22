@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import icon from "../../../assets/icon.png";
 
@@ -10,33 +10,30 @@ const UploadContainer = styled(Box)<{ isDragging: boolean }>(
     alignItems: "center",
     justifyContent: "center",
     padding: "20px",
-    width: "500px",
+    width: "637px",
     height: "300px",
     textAlign: "center",
-    transition: "background-color 0.3s",
-    backgroundColor: isDragging ? "#e3e3ff" : "tranparent",
-    backgroundImage:
-      "url(\"data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='33' ry='33' stroke='%231233db' stroke-width='5' stroke-dasharray='18%2c 18' stroke-dashoffset='29' stroke-linecap='butt'/%3e%3c/svg%3e\")",
-    borderRadius: "33px",
+    borderRadius: "16px",
+    border: "2px dashed rgba(224, 224, 224, 0.5)",
+    boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
+    transition: "background-color 0.3s, background-image 0.3s",
+    backgroundImage: isDragging
+      ? "linear-gradient(135deg, #f2f4fc 0%, #FAFAFA 100%)"
+      : "linear-gradient(135deg, #f2f4fc 0%, #FAFAFA 100%)",
+    "&:hover": {
+      backgroundColor: "#FFFDF5",
+    },
   })
 );
 
-const UploadButton = styled(Button)({
-  marginTop: "10px",
-  padding: "16px 24px",
-  borderRadius: "999px",
-  backgroundColor: "#1A3DDC",
-  color: "#fff",
-  display: "flex",
-  textTransform: "capitalize",
-  alignItems: "center",
-  textAlign: "center",
-  lineHeight: "1",
-  boxShadow: "0 0px 10px  rgba(26, 61, 220, 0.6)",
-  verticalAlign: "middle",
-  justifyContent: "center",
+const CustomFileLink = styled("span")({
+  color: "#4747FF",
+  cursor: "pointer",
+  fontWeight: "bold",
+  transition: "color 0.3s",
+  textDecoration: "none",
   "&:hover": {
-    backgroundColor: "#303f9f",
+    color: "#1b1b7a",
   },
 });
 
@@ -82,20 +79,26 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileChange }) => {
         type="file"
         onChange={handleFileChange}
       />
-      <div className="w-20 h-20">
+      <div className="w-12 h-12">
         <img src={icon} alt="icon" className="w-full h-full object-contain" />
       </div>
 
-      <Box sx={{ marginTop: "10px", color: "#4f4a70", fontSize: 16 }}>
-        {isDragging
-          ? "Solte o arquivo aqui"
-          : "Arraste ou clique para selecionar um arquivo"}
+      <Box sx={{ marginTop: "10px", color: "#2b2a33", fontSize: 16 }}>
+        {isDragging ? (
+          "Drop the file here"
+        ) : (
+          <>
+            Drag and Drop file here or{" "}
+            <label htmlFor="file-upload">
+              <CustomFileLink>Choose File</CustomFileLink>
+            </label>
+            <p className="text-xs text-[#6d6c75]">
+              {" "}
+              Supported formats: MP4, PDF, JPG, PNG, MP3
+            </p>
+          </>
+        )}
       </Box>
-      <label htmlFor="file-upload">
-        <UploadButton variant="contained" component="span">
-          Procurar Arquivo
-        </UploadButton>
-      </label>
     </UploadContainer>
   );
 };

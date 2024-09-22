@@ -13,23 +13,23 @@
 
   font-family: "Poppins", sans-serif;
 
-  background: rgb(198, 198, 255);
-  background: -moz-linear-gradient(
+  background: #e7ecff;
+  /* background: -moz-linear-gradient(
     301deg,
-    rgba(198, 198, 255, 1) 0%,
-    rgba(219, 219, 255, 1) 100%
+    rgb(197, 162, 255) 0%,
+    rgb(52, 50, 172) 100%
   );
   background: -webkit-linear-gradient(
     301deg,
-    rgba(198, 198, 255, 1) 0%,
-    rgba(219, 219, 255, 1) 100%
+    rgb(197, 162, 255) 0%,
+    rgb(52, 50, 172) 100%
   );
   background: linear-gradient(
     301deg,
-    rgba(198, 198, 255, 1) 0%,
-    rgba(219, 219, 255, 1) 100%
+    rgb(197, 162, 255) 0%,
+    rgb(52, 50, 172) 100%
   );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c6c6ff",endColorstr="#dbdbff",GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c6c6ff",endColorstr="#dbdbff",GradientType=1); */
 }
 
 html,
@@ -45,9 +45,9 @@ html a {
     rgba(23, 3, 252, 0.6) 0%,
     transparent 70%
   );
-  backdrop-filter: blur(100px); /* Aplica o Gaussian Blur */
-  filter: blur(10px); /* Complementa o blur */
-  position: absolute; /* Assegura que a posição é fixa para a animação */
+  backdrop-filter: blur(100px);
+  filter: blur(10px);
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -59,9 +59,9 @@ html a {
     rgba(173, 3, 252, 0.6) 0%,
     transparent 70%
   );
-  backdrop-filter: blur(100px); /* Aplica o Gaussian Blur */
-  filter: blur(10px); /* Complementa o blur */
-  position: absolute; /* Assegura que a posição é fixa para a animação */
+  backdrop-filter: blur(100px);
+  filter: blur(10px);
+  position: absolute;
   top: 70%;
   left: 70%;
   transform: translate(-50%, -50%);
@@ -69,9 +69,9 @@ html a {
 
 .blur-background3 {
   background: radial-gradient(circle, rgba(26, 61, 220, 1) 0%, transparent 70%);
-  backdrop-filter: blur(10px); /* Aplica o Gaussian Blur */
-  filter: blur(0px); /* Complementa o blur */
-  position: absolute; /* Assegura que a posição é fixa para a animação */
+  backdrop-filter: blur(10px);
+  filter: blur(0px);
+  position: absolute;
   top: 50%;
   left: 71%;
   transform: translate(-50%, -50%);
@@ -102,4 +102,49 @@ html a {
 
 .animate-grow {
   animation: grow 10s ease-in-out infinite;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(1000, 1fr);
+  grid-template-rows: repeat(1000, 1fr);
+  gap: 0px;
+}
+
+.grid-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+      rgba(255, 255, 255, 0.4) 0,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px,
+      transparent 80px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.4) 0,
+      rgba(249, 250, 255, 0.6) 1px,
+      transparent 1px,
+      transparent 80px
+    );
+}
+
+.grid-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 0%,
+    rgb(231, 236, 255, 0.4) 50%,
+    rgb(183, 190, 214) 100%
+  );
+  pointer-events: none;
 }

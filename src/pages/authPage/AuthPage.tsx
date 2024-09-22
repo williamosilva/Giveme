@@ -1,7 +1,4 @@
-import TextFieldGiveme from "./components/TextField";
-import ButtonGiveme from "./components/Button";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import Footer from "../../components/Footer";
 import Photo from "../../assets/perfil.jpg";
 import Background from "../../assets/gato.jpg";
 import Register from "./Register";
@@ -58,6 +55,7 @@ export default function AuthPage() {
           />
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

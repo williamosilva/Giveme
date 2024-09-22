@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       fontFamily: {
         Raleway: ["Raleway", "sans-serif"],
+        Sora: ["Sora", "sans-serif"],
+        DM: ["DM Serif Display", "serif"],
       },
     },
   },
