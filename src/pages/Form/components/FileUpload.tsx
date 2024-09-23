@@ -85,7 +85,10 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileChange }) => {
 
       <Box sx={{ marginTop: "10px", color: "#2b2a33", fontSize: 16 }}>
         {isDragging ? (
-          "Drop the file here"
+          <>
+            Drop the file here
+            <p className="text-xs invisible"> oi</p>
+          </>
         ) : (
           <>
             Drag and Drop file here or{" "}

@@ -9,8 +9,6 @@ import shape1 from "./assets/shape1.png";
 import shape2 from "./assets/shape2.png";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="relative flex w-full h-full justify-center items-center overflow-hidden">
       <div className="relative z-10 w-full h-full flex justify-center items-center">

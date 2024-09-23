@@ -119,15 +119,15 @@ html a {
   right: 0;
   bottom: 0;
   background: repeating-linear-gradient(
-      rgba(255, 255, 255, 0.4) 0,
-      rgba(255, 255, 255, 0.1) 1px,
+      rgba(255, 255, 255, 1) 0,
+      rgba(255, 255, 255, 0.8) 1px,
       transparent 1px,
       transparent 80px
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.4) 0,
-      rgba(249, 250, 255, 0.6) 1px,
+      rgba(255, 255, 255, 1) 0,
+      rgba(249, 250, 255, 0.8) 1px,
       transparent 1px,
       transparent 80px
     );
@@ -143,8 +143,8 @@ html a {
   background: radial-gradient(
     circle,
     rgba(0, 0, 0, 0) 0%,
-    rgb(231, 236, 255, 0.4) 50%,
-    rgb(183, 190, 214) 100%
+    rgb(231, 236, 255, 0.1) 50%,
+    rgb(231, 236, 255, 1) 100%
   );
   pointer-events: none;
 }

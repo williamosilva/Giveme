@@ -12,7 +12,7 @@ export default function Footer() {
   const [hoveredIcon, setHoveredIcon] = useState(null as string | null);
 
   return (
-    <footer className="relative w-full h-full justify-center items-end flex">
+    <footer className="relative w-full h-fit justify-center items-end flex">
       <div className="relative flex flex-col items-center">
         <div className="w-52 z-[1] h-fit opacity-30 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[120%]">
           <img

@@ -13,3 +13,48 @@
 .animate-gradient {
   animation: gradientAnimation 4s ease infinite;
 }
+
+.boxFile {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.boxFile::before,
+.boxFile::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    #fafbff 0%,
+    #f5f7ff 50%,
+
+    #fafbff 100%
+  );
+  background-size: 200% 100%;
+  animation: gradientSlide 16s linear infinite;
+  z-index: -1;
+}
+
+.boxFile::after {
+  animation-duration: 8s;
+  opacity: 0.5;
+  filter: blur(15px);
+}
+
+@keyframes gradientSlide {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: -200% 50%;
+  }
+}
