@@ -1,9 +1,10 @@
 import "./style.css";
 import FileUpload from "./components/FileUpload";
-import { useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Box, Button } from "@mui/material";
 import Footer from "../../components/Footer";
 import jpg from "../../assets/jpg.svg";
+import TextFieldGiveme from "../authPage/components/TextField";
 import Dots from "./components/Dot";
 import mp3 from "../../assets/mp3.svg";
 import mp4 from "../../assets/mp4.svg";
@@ -12,6 +13,7 @@ import png from "../../assets/png.svg";
 
 export default function Form() {
   const [file, setFile] = useState<File | null>(null);
+  const [inputValue, setInputValue] = useState<string>("aaa"); // Estado para armazenar o valor da TextField
 
   const handleFileChange = (selectedFile: File | null) => {
     setFile(selectedFile);
@@ -20,7 +22,13 @@ export default function Form() {
   const [trigger, setTrigger] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log(loading);
+  useEffect(() => {
+    if (trigger) {
+      setTimeout(() => {
+        setTrigger(false);
+      }, 2000);
+    }
+  }, [trigger]);
 
   return (
     <>
@@ -60,22 +68,14 @@ export default function Form() {
               flexDirection: "column",
             }}
           >
-            {/* <Typography variant="h6" sx={{ marginBottom: "10px" }}>
-            Upload de Arquivo
-          </Typography> */}
-
-            {/* Componente de Upload de Arquivo */}
-
             <FileUpload onFileChange={handleFileChange} />
-
-            {/* Exibição de nome e tamanho do arquivo */}
 
             <div
               className={`relative overflow-hidden transition-all duration-300 ease-out ${
                 !file ? `h-0` : `h-[80px]`
               } `}
             >
-              <Box className="boxFile h-full relative border-[1px] shadow border-white flex justify-center items-center">
+              <Box className="boxFile h-full relative  border-[1px] shadow border-white flex justify-center items-center">
                 {loading ? (
                   <>
                     <div className="flex gap-5 items-center">
@@ -100,17 +100,17 @@ export default function Form() {
                       variant="contained"
                       color="primary"
                       sx={{
-                        backgroundColor: "#6d6af7", // Cor de fundo branca
-                        color: "#ffffff", // Cor do texto preta
+                        backgroundColor: "#6d6af7",
+                        color: "#ffffff",
                         borderRadius: "20px",
                         fontSize: "12px",
                         boxShadow: "none",
                         textTransform: "none",
-                        transition: "background-color 0.3s", // Transição de cor ao passar o mouse
-                        border: "1px solid #cccc", // Borda preta
+                        transition: "background-color 0.3s",
+                        border: "1px solid #cccc",
                         "&:hover": {
-                          backgroundColor: "#4E55FE", // Cor de fundo ao passar o mouse
-                          boxShadow: "none", // Retirar sombra ao passar o mouse
+                          backgroundColor: "#4E55FE",
+                          boxShadow: "none",
                         },
                       }}
                       onClick={() => setTrigger((prev) => !prev)}
@@ -119,15 +119,36 @@ export default function Form() {
                     </Button>
                   </>
                 ) : (
-                  <div
-                    className={` relative transition-all duration-1000 ease-in-out w-full  ${
-                      trigger
-                        ? `-translate-y-6 opacity-0 `
-                        : `opacity-100 translate-y-1`
-                    }`}
-                  >
-                    <Dots />
-                  </div>
+                  <>
+                    <div className="w-full flex">
+                      <TextFieldGiveme
+                        value={inputValue} // Valor controlado pelo estado
+                        type="link"
+                      />
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                          backgroundColor: "#6d6af7",
+                          color: "#ffffff",
+                          borderRadius: "20px",
+                          fontSize: "12px",
+                          boxShadow: "none",
+                          textTransform: "none",
+                          width: "200px",
+                          transition: "background-color 0.3s",
+                          border: "1px solid #cccc",
+                          "&:hover": {
+                            backgroundColor: "#4E55FE",
+                            boxShadow: "none",
+                          },
+                        }}
+                        onClick={() => setTrigger((prev) => !prev)}
+                      >
+                        Copy
+                      </Button>
+                    </div>
+                  </>
                 )}
               </Box>
             </div>
