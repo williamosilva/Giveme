@@ -5,6 +5,7 @@ import { Box, Button } from "@mui/material";
 import Footer from "../../components/Footer";
 import jpg from "../../assets/jpg.svg";
 import TextFieldGiveme from "../authPage/components/TextField";
+import StyledButton from "./components/StyledButton";
 import Dots from "./components/Dot";
 import mp3 from "../../assets/mp3.svg";
 import mp4 from "../../assets/mp4.svg";
@@ -120,34 +121,24 @@ export default function Form() {
                   </>
                 ) : (
                   <>
-                    <div className="w-full flex">
+                    <div className="w-full gap-10 flex">
                       <TextFieldGiveme
                         value={inputValue} // Valor controlado pelo estado
                         type="link"
                       />
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        sx={{
-                          backgroundColor: "#6d6af7",
-                          color: "#ffffff",
-                          borderRadius: "20px",
-                          fontSize: "12px",
-                          boxShadow: "none",
-                          textTransform: "none",
-                          width: "200px",
-                          transition: "background-color 0.3s",
-                          border: "1px solid #cccc",
-                          "&:hover": {
-                            backgroundColor: "#4E55FE",
-                            boxShadow: "none",
-                          },
-                        }}
-                        onClick={() => setTrigger((prev) => !prev)}
-                      >
+                      <StyledButton onClick={() => setTrigger((prev) => !prev)}>
                         Copy
-                      </Button>
+                      </StyledButton>
                     </div>
+                    {/* <div
+                      className={` relative transition-all duration-1000 ease-in-out w-full  ${
+                        trigger
+                          ? `-translate-y-6 opacity-0 `
+                          : `opacity-100 translate-y-1`
+                      }`}
+                    >
+                      <Dots />
+                    </div> */}
                   </>
                 )}
               </Box>
