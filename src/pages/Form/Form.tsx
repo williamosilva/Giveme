@@ -23,13 +23,18 @@ export default function Form() {
   const [trigger, setTrigger] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (trigger) {
-      setTimeout(() => {
-        setTrigger(false);
-      }, 2000);
-    }
-  }, [trigger]);
+  const handleCopy = () => {
+    // Lógica para copiar o texto
+    console.log("Texto copiado!");
+  };
+
+  // useEffect(() => {
+  //   if (trigger) {
+  //     setTimeout(() => {
+  //       setTrigger(false);
+  //     }, 2000);
+  //   }
+  // }, [trigger]);
 
   return (
     <>
@@ -45,8 +50,8 @@ export default function Form() {
           >
             Giveme
           </h1>
-          <button onClick={() => setLoading((prev) => !prev)}> oii</button>
-          <button onClick={() => setTrigger((prev) => !prev)}> oii2</button>
+          <button onClick={() => setTrigger((prev) => !prev)}> oii</button>
+          <button onClick={() => setLoading((prev) => !prev)}> oiiss</button>
           <h1
             className="font-normal leading-tight  font-Sora text-[1.72rem] text-transparent bg-clip-text animate-gradient"
             style={{
@@ -77,9 +82,59 @@ export default function Form() {
               } `}
             >
               <Box className="boxFile h-full relative  border-[1px] shadow border-white flex justify-center items-center">
-                {loading ? (
-                  <>
-                    <div className="flex gap-5 items-center">
+                <>
+                  <div
+                    className={`
+                    
+                     ${
+                       !trigger
+                         ? `translate-y-4 opacity-0  pointer-events-none`
+                         : ` opacity-100`
+                     }
+                    w-full gap-10 flex absolute  top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] transition-all duration-1000 ease-in-out p-5`}
+                  >
+                    <TextFieldGiveme
+                      value={inputValue} // Valor controlado pelo estado
+                      type="link"
+                    />
+                    <StyledButton onClick={handleCopy}>Copy</StyledButton>
+                  </div>
+
+                  <div
+                    className={`absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] transition-all duration-1000 ease-in-out ${
+                      trigger
+                        ? `-translate-y-12 opacity-0  pointer-events-none`
+                        : ` opacity-100`
+                    }`}
+                  >
+                    <div
+                      className={` relative  transition-all   duration-1000 ease-in-out w-full h-full 
+                        
+                    ${
+                      loading
+                        ? `scale-8 opacity-0 pointer-events-none `
+                        : `scale-100 opacity-100`
+                    }    
+                        `}
+                    >
+                      <Dots />
+                    </div>
+                  </div>
+                </>
+
+                <>
+                  <div
+                    className={`${
+                      !loading
+                        ? `opacity-0 scale-100 translate-y-4  pointer-events-none`
+                        : `opacity-100 scale-100 translate-y-0`
+                    } flex justify-between w-full transition-all duration-500 ease-in-out`}
+                  >
+                    <div
+                      className={` 
+              
+                      flex gap-5 items-center `}
+                    >
                       <div className="w-8 h-8">
                         <img src={jpg} className="w-full object-contain" />
                       </div>
@@ -114,33 +169,12 @@ export default function Form() {
                           boxShadow: "none",
                         },
                       }}
-                      onClick={() => setTrigger((prev) => !prev)}
+                      onClick={() => setLoading(true)}
                     >
                       Create link
                     </Button>
-                  </>
-                ) : (
-                  <>
-                    <div className="w-full gap-10 flex">
-                      <TextFieldGiveme
-                        value={inputValue} // Valor controlado pelo estado
-                        type="link"
-                      />
-                      <StyledButton onClick={() => setTrigger((prev) => !prev)}>
-                        Copy
-                      </StyledButton>
-                    </div>
-                    {/* <div
-                      className={` relative transition-all duration-1000 ease-in-out w-full  ${
-                        trigger
-                          ? `-translate-y-6 opacity-0 `
-                          : `opacity-100 translate-y-1`
-                      }`}
-                    >
-                      <Dots />
-                    </div> */}
-                  </>
-                )}
+                  </div>
+                </>
               </Box>
             </div>
           </Box>

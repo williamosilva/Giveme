@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 interface StyledButtonProps {
   onClick: () => void;
@@ -6,12 +6,32 @@ interface StyledButtonProps {
 }
 
 const StyledButton: React.FC<StyledButtonProps> = ({ onClick, children }) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isCopied) {
+      timer = setTimeout(() => {
+        setIsCopied(false);
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [isCopied]);
+
+  const handleClick = () => {
+    onClick();
+    setIsCopied(true);
+  };
+
   return (
     <button
-      className="
+      className={`
         relative
-        bg-[#b784f5] 
-        hover:bg-[#6d6af7]
+        ${
+          isCopied
+            ? "bg-green-500 hover:bg-green-600"
+            : "bg-[#b784f5] hover:bg-[#6d6af7]"
+        }
         text-white 
         rounded-2xl
         group
@@ -26,42 +46,50 @@ const StyledButton: React.FC<StyledButtonProps> = ({ onClick, children }) => {
         focus:outline-none 
         focus:ring-opacity-50
         overflow-hidden
-      "
-      onClick={onClick}
+      `}
+      onClick={handleClick}
     >
-      <span className="relative z-10">{children}</span>
+      <span className="relative z-10 transition-all duration-300 ease-in-out">
+        {isCopied ? "Copied!" : children}
+      </span>
       <span
-        className="
+        className={`
           absolute 
           inset-0 
           border-[2px] 
           border-white 
-         rounded-2xl
-        "
+          rounded-2xl
+          transition-all
+          duration-300
+          ease-in-out
+          ${isCopied ? "opacity-100" : "opacity-100"}
+        `}
         style={{
-          animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+          animation: isCopied
+            ? "pulse 2s cubic-bezieinfiniter(0.4, 0, 0.6, 1)"
+            : "pulse 2s cubic-bezieinfiniter(0.4, 0, 0.6, 1) ",
         }}
       ></span>
       <span
-        className="
+        className={`
           absolute 
           -inset-1
           bg-gradient-to-r 
-        transition-all
-        duration-700
-        ease-in-out
-        group-hover:from-purple-500
-        group-hover:to-[#6d6af7]
-        
-
-          from-purple-600 
-          to-blue-500 
+          transition-all
+          duration-700
+          ease-in-out
+          ${
+            isCopied
+              ? " from-green-400 to-[#6aff91]"
+              : "group-hover:from-purple-500 group-hover:to-[#6d6af7] from-purple-600 to-blue-500"
+          }
           rounded-2xl
           blur-lg
           opacity-100
-        "
+        `}
         style={{
-          animation: "spin 3s linear infinite",
+          animation: isCopied ? "none" : "spin 3s linear infinite",
+          transition: "background 0.3s ease-in-out, transform 0.3s ease-in-out",
         }}
       ></span>
       <style jsx>{`
@@ -81,6 +109,14 @@ const StyledButton: React.FC<StyledButtonProps> = ({ onClick, children }) => {
           to {
             transform: rotate(360deg);
           }
+        }
+        button {
+          transition: background-color 0.3s ease-in-out,
+            transform 0.3s ease-in-out;
+        }
+
+        button:active {
+          transform: scale(0.9);
         }
       `}</style>
     </button>

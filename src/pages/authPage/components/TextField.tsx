@@ -4,7 +4,6 @@ import { styled } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import LinkIcon from "@mui/icons-material/Link";
 
-// Estilizando a TextField
 const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
     borderRadius: 16,
@@ -37,7 +36,6 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-// Estilizando a TextField para o modo link
 const StyledLinkTextField = styled(StyledTextField)(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
     backgroundColor: "#f5f6ff",
@@ -71,7 +69,7 @@ type TextFieldGivemeProps = {
   title?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  type?: "default" | "link"; // Novo prop para definir o tipo
+  type?: "default" | "link";
 };
 
 export default function TextFieldGiveme({
@@ -80,7 +78,7 @@ export default function TextFieldGiveme({
   title,
   value,
   onChange,
-  type = "default", // Valor padrão é "default"
+  type = "default",
 }: TextFieldGivemeProps) {
   const TextFieldComponent =
     type === "link" ? StyledLinkTextField : StyledTextField;
