@@ -10,12 +10,14 @@ export default function Login({
   registerRedirect: (event: React.MouseEvent<HTMLParagraphElement>) => void;
 }) {
   return (
-    <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between p-12">
+    <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between sm:p-12 p-5">
       <div className="bg-[#4747FF] w-20 h-20 rounded-xl flex items-center justify-center text-white font-medium">
         Logo
       </div>
       <div className="flex flex-col justify-start gap-3 mb-12">
-        <h1 className="text-6xl font-black text-neutral-900">Entrar</h1>
+        <h1 className="sm:text-6xl text-5xl font-black text-neutral-900">
+          Entrar
+        </h1>
         <div className="flex gap-1">
           <p className="text-base text-neutral-400">Não possui registro?</p>
           <p

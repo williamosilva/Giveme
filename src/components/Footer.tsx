@@ -22,39 +22,55 @@ export default function Footer() {
           />
         </div>
         <ul className="flex gap-2 z-[2] relative">
-          {["linkedin", "github", "william"].map((icon) => (
+          {[
+            {
+              name: "linkedin",
+              url: "https://www.linkedin.com/in/williamsilva2005/",
+            },
+            { name: "github", url: "https://github.com/WilliamSilvaOliveiraa" },
+            { name: "william", url: "https://seu-site.com" },
+          ].map((icon) => (
             <li
-              key={icon}
+              key={icon.name}
               className="w-9 h-9 rounded-xl shadow p-2 relative"
-              onMouseEnter={() => setHoveredIcon(icon)}
+              onMouseEnter={() => setHoveredIcon(icon.name)}
               onMouseLeave={() => setHoveredIcon(null)}
             >
-              <img
-                src={
-                  icon === "linkedin"
-                    ? linkedin
-                    : icon === "github"
-                    ? github
-                    : william
-                }
-                alt={icon.charAt(0).toUpperCase() + icon.slice(1)}
-                className={`absolute   h-[55%] object-contain transition-opacity duration-300 ${
-                  hoveredIcon === icon ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <img
-                src={
-                  icon === "linkedin"
-                    ? linkedin_w
-                    : icon === "github"
-                    ? github_w
-                    : william_w
-                }
-                alt={`${icon.charAt(0).toUpperCase() + icon.slice(1)} Hovered`}
-                className={`absolute   h-[55%] object-contain transition-opacity duration-300 ${
-                  hoveredIcon === icon ? "opacity-100" : "opacity-0"
-                }`}
-              />
+              <a
+                href={icon.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full h-full"
+              >
+                <img
+                  src={
+                    icon.name === "linkedin"
+                      ? linkedin
+                      : icon.name === "github"
+                      ? github
+                      : william
+                  }
+                  alt={icon.name.charAt(0).toUpperCase() + icon.name.slice(1)}
+                  className={`absolute h-[55%] object-contain transition-opacity duration-300 ${
+                    hoveredIcon === icon.name ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+                <img
+                  src={
+                    icon.name === "linkedin"
+                      ? linkedin_w
+                      : icon.name === "github"
+                      ? github_w
+                      : william_w
+                  }
+                  alt={`${
+                    icon.name.charAt(0).toUpperCase() + icon.name.slice(1)
+                  } Hovered`}
+                  className={`absolute h-[55%] object-contain transition-opacity duration-300 ${
+                    hoveredIcon === icon.name ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              </a>
             </li>
           ))}
         </ul>

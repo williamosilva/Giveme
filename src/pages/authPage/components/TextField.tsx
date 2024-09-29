@@ -36,7 +36,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-const StyledLinkTextField = styled(StyledTextField)(({ theme }) => ({
+const StyledLinkTextField = styled(StyledTextField)(({}) => ({
   "& .MuiOutlinedInput-root": {
     backgroundColor: "#f5f6ff",
     borderRadius: 8,

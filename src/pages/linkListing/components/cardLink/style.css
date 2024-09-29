@@ -1,0 +1,54 @@
+@keyframes snake-border {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 400% 0%;
+  }
+}
+
+.border-snake {
+  position: relative;
+  border-radius: 1rem;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(90deg, transparent 25%, white 50%, transparent 75%)
+      border-box;
+  background-size: 200% 200%;
+  animation: snake-border 4s linear infinite;
+}
+
+@keyframes moving-lights {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-moving-lights {
+  background-size: 200% 200%;
+  animation: moving-lights 6s ease-in-out infinite;
+}
+
+.animate-color-change {
+  animation: color-change 4s ease-in-out infinite;
+}
+
+@keyframes text-fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-text-fade {
+  animation: text-fade 4s ease-in-out infinite;
+}

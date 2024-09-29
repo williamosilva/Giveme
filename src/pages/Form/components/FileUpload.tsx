@@ -23,6 +23,10 @@ const UploadContainer = styled(Box)<{ isDragging: boolean }>(
     "&:hover": {
       backgroundColor: "#FFFDF5",
     },
+
+    "@media (max-width: 684px)": {
+      width: "100%",
+    },
   })
 );
 
@@ -83,7 +87,17 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileChange }) => {
         <img src={icon} alt="icon" className="w-full h-full object-contain" />
       </div>
 
-      <Box sx={{ marginTop: "10px", color: "#2b2a33", fontSize: 16 }}>
+      <Box
+        sx={{
+          marginTop: "10px",
+          color: "#2b2a33",
+          fontSize: 16,
+
+          "@media (max-width: 400px)": {
+            fontSize: 14,
+          },
+        }}
+      >
         {isDragging ? (
           <>
             Drop the file here
