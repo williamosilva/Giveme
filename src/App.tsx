@@ -13,9 +13,9 @@ function App() {
   return (
     <div className="relative flex w-full h-full justify-center items-center overflow-hidden">
       <div className="relative z-10 w-full h-full flex justify-center items-center">
-        <Form />
+        {/* <Form /> */}
         {/* <AuthPage /> */}
-        {/* <LinkListing /> */}
+        <LinkListing />
       </div>
       <div className="w-full h-full  absolute opacity-50 ">
         <span className=" blur-background w-[30vw] h-[30vw] rounded-full absolute animate-grow"></span>

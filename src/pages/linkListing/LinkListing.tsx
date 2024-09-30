@@ -1,10 +1,11 @@
 import CardLink from "./components/cardLink/CardLink";
 import { IconButton } from "@mui/material";
 import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
+import Footer from "../../components/Footer";
 
 export default function LinkListing() {
   return (
-    <div className="w-full h-full grid grid-rows-3 grid-cols-1 justify-center items-center">
+    <div className="w-full h-full grid grid-rows-[1fr_2fr_1fr] grid-cols-1 justify-center items-center">
       <div className="h-full w-full grid grid-cols-3 justify-center items-center">
         <div className="flex justify-start w-full pl-14 h-full items-start pt-14">
           <IconButton>
@@ -27,7 +28,7 @@ export default function LinkListing() {
       </div>
 
       {true ? (
-        <div className="w-full h-full flex flex-col items-center justify-center gap-6 md:p-0 px-4">
+        <div className="w-full flex flex-col h-[100%] items-center justify-center gap-6 md:p-0 px-4">
           <CardLink />
           <CardLink />
           <CardLink />
@@ -40,7 +41,9 @@ export default function LinkListing() {
         </div>
       )}
 
-      <div className="h-full"></div>
+      <div className="h-full flex-col flex justify-end pb-6">
+        <Footer />
+      </div>
     </div>
   );
 }

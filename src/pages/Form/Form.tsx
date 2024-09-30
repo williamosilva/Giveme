@@ -45,6 +45,7 @@ export default function Form() {
   const [trigger, setTrigger] = useState(true);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  // const [fileLimit, setFileLimit] = useState(0);
 
   const StyledSnackbar = styled(Snackbar)(() => ({
     "& .MuiSnackbarContent-root": {
@@ -92,6 +93,22 @@ export default function Form() {
               sx={{ color: "#4747FF" }}
             />
             <p className="align-middle leading-none ">Unsupported file type</p>
+          </div>
+        }
+      />
+      <StyledSnackbar
+        open={false}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={
+          <div className="flex gap-2 justify-center items-center">
+            <PriorityHighRoundedIcon
+              fontSize="small"
+              sx={{ color: "#4747FF" }}
+            />
+            <p className="align-middle leading-none ">
+              Upload limit reached! Delete any of your files to continue...
+            </p>
           </div>
         }
       />
