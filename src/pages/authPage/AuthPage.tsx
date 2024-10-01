@@ -8,6 +8,8 @@ import axios from "axios";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   function handleClick() {
     setIsLogin(!isLogin);
@@ -22,7 +24,45 @@ export default function AuthPage() {
     }
   };
 
-  fetchData();
+  const handleRegister = async (
+    email: string,
+    password: string,
+    user: string,
+    confirmPassword: string
+  ) => {
+    console.log("bateyyy");
+
+    // if (!email || !confirmPassword || !password || !user) {
+    //   console.log("Preencha todos os campos.");
+    //   return;
+    // }
+
+    // Verifica se os emails coincidem
+    if (password !== confirmPassword) {
+      setError("As senhas não coincidem.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:3000/auth/register", {
+        name: user,
+        email,
+        password,
+        confirmpassword: password,
+      });
+
+      if (response.status === 201) {
+        setSuccessMessage("Usuário registrado com sucesso.");
+        setError("");
+      }
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        setError(error.response.data.erro || "Erro ao registrar usuário.");
+      } else {
+        setError("Erro ao conectar com o servidor.");
+      }
+    }
+  };
 
   const consolelog = (email: string, password: string) => {
     console.log(email, password);
@@ -52,7 +92,10 @@ export default function AuthPage() {
               }`}
               style={{ pointerEvents: !isLogin ? "auto" : "none" }}
             >
-              <Register loginRedirect={handleClick} />
+              <Register
+                loginRedirect={handleClick}
+                registerFunc={handleRegister}
+              />
             </div>
           </div>
 

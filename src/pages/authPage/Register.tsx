@@ -2,13 +2,30 @@ import TextFieldGiveme from "../../components/TextField";
 import ButtonGiveme from "../../components/Button";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
 import React from "react";
 
 export default function Register({
   loginRedirect,
+  registerFunc,
 }: {
   loginRedirect: (event: React.MouseEvent<HTMLParagraphElement>) => void;
+  registerFunc: (
+    email: string,
+    password: string,
+    user: string,
+    confirmPassword: string
+  ) => void;
 }) {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [user, setUser] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+
+  const handleRegister = () => {
+    registerFunc(email, password, user, confirmPassword);
+  };
+
   return (
     <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between sm:p-12 p-5">
       <div className="h-full flex items-start w-full">
@@ -30,26 +47,34 @@ export default function Register({
           </p>
         </div>
       </div>
-      <div className="w-full gap-12 flex flex-col h-full">
+      <div className="w-full gap-7 flex flex-col h-full">
         <TextFieldGiveme
           placeholder="Enter your user..."
           title="User"
           icon={<PersonOutlineOutlinedIcon />}
+          onChange={(e) => setUser(e.target.value)}
         />
         <TextFieldGiveme
           placeholder="Enter your email..."
           title="Email"
           icon={<EmailOutlinedIcon />}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+        <TextFieldGiveme
+          placeholder="Enter your password..."
+          title="Password"
+          icon={<VpnKeyRoundedIcon />}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setConfirmPassword(e.target.value);
+          }}
         />
       </div>
-      <div className="w-full h-full flex items-center">
+      <div className="w-full h-full flex items-end">
         <div className="w-full">
-          <ButtonGiveme
-            buttonText="Register"
-            onClick={() => {
-              console.log("Register button clicked!");
-            }}
-          />
+          <ButtonGiveme buttonText="Register" onClick={handleRegister} />
         </div>
       </div>
     </section>
