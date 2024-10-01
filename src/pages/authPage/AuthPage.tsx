@@ -4,6 +4,7 @@ import Background from "../../assets/gato.jpg";
 import Register from "./Register";
 import Login from "./Login";
 import { useState } from "react";
+import axios from "axios";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -11,6 +12,21 @@ export default function AuthPage() {
   function handleClick() {
     setIsLogin(!isLogin);
   }
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/");
+      console.log(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+    }
+  };
+
+  fetchData();
+
+  const consolelog = (email: string, password: string) => {
+    console.log(email, password);
+  };
 
   return (
     <div className="flex flex-col h-full items-center">
@@ -26,7 +42,7 @@ export default function AuthPage() {
               }`}
               style={{ pointerEvents: isLogin ? "auto" : "none" }}
             >
-              <Login registerRedirect={handleClick} />
+              <Login registerRedirect={handleClick} loginFunc={consolelog} />
             </div>
             <div
               className={`absolute inset-0 transition-all duration-300 ${
@@ -44,11 +60,11 @@ export default function AuthPage() {
             <img src={Background} className="object-cover h-full w-full" />
           </section>
 
-          <section className="absolute  flex lg:top-16 lg:left-[37%]   sm:top-16 sm:right-16 top-8 right-6 transform[translate(-50%, -50%)]">
+          <section className="absolute  flex lg:top-16 lg:left-[36.2%]   sm:top-16 sm:right-16 top-8 right-6 transform[translate(-50%, -50%)]">
             <div className="flex flex-col justify-center">
-              <p className="text-base text-neutral-400">Dúvidas?</p>
+              <p className="text-base text-neutral-400">Need Help?</p>
               <p className="text-base text-[#4747FF] font-bold tracking-tight">
-                Me chame!
+                Contact Me!
               </p>
             </div>
             <div className="w-20 h-20 bg-white p-2 rounded-full">

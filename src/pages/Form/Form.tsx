@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./style.css";
 import FileUpload from "./components/FileUpload";
 import { Box, Button, Snackbar } from "@mui/material";
 import Footer from "../../components/Footer";
 import jpg from "../../assets/jpg.svg";
-import TextFieldGiveme from "../authPage/components/TextField";
+import TextFieldGiveme from "../../components/TextField";
 import StyledButton from "./components/StyledButton";
-import Dots from "./components/Dot";
+import Dots from "../../components/Dot";
 import mp3 from "../../assets/mp3.svg";
 import PriorityHighRoundedIcon from "@mui/icons-material/PriorityHighRounded";
 import mp4 from "../../assets/mp4.svg";

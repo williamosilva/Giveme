@@ -1,5 +1,5 @@
-import TextFieldGiveme from "./components/TextField";
-import ButtonGiveme from "./components/Button";
+import TextFieldGiveme from "../../components/TextField";
+import ButtonGiveme from "../../components/Button";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import React from "react";
@@ -18,33 +18,38 @@ export default function Register({
       </div>
       <div className="flex flex-col justify-start gap-3 h-full w-full">
         <h1 className="sm:text-6xl  text-5xl font-black text-neutral-900">
-          Registrar
+          Register
         </h1>
         <div className="flex gap-1">
-          <p className="text-base text-neutral-40 0">Já é registrado?</p>
+          <p className="text-base text-neutral-40 0">Already registered?</p>
           <p
             className="text-base text-[#4747FF] font-bold tracking-tight cursor-pointer hover:underline"
             onClick={loginRedirect}
           >
-            Entrar agora
+            Sign in now
           </p>
         </div>
       </div>
       <div className="w-full gap-12 flex flex-col h-full">
         <TextFieldGiveme
-          placeholder="Insira seu usuário..."
-          title="Usuário"
+          placeholder="Enter your user..."
+          title="User"
           icon={<PersonOutlineOutlinedIcon />}
         />
         <TextFieldGiveme
-          placeholder="Insira seu email..."
+          placeholder="Enter your email..."
           title="Email"
           icon={<EmailOutlinedIcon />}
         />
       </div>
       <div className="w-full h-full flex items-center">
         <div className="w-full">
-          <ButtonGiveme buttonText="Registrar" />
+          <ButtonGiveme
+            buttonText="Register"
+            onClick={() => {
+              console.log("Register button clicked!");
+            }}
+          />
         </div>
       </div>
     </section>
