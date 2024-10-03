@@ -9,13 +9,13 @@ export default function Login({
   loginFunc,
 }: {
   registerRedirect: (event: React.MouseEvent<HTMLParagraphElement>) => void;
-  loginFunc: (email: string, password: string) => void;
+  loginFunc: ({ email, password }: { email: string; password: string }) => void;
 }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const handleLogin = () => {
-    loginFunc(email, password);
+    loginFunc({ email, password });
   };
 
   return (

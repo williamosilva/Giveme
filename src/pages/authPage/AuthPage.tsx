@@ -4,7 +4,7 @@ import Background from "../../assets/gato.jpg";
 import Register from "./Register";
 import Login from "./Login";
 import { useState } from "react";
-
+import { useLoginMutation } from "../../hooks/useLoginMutation";
 import { useRegisterMutation } from "../../hooks/useRegisterMutation";
 
 export default function AuthPage() {
@@ -18,6 +18,12 @@ export default function AuthPage() {
     isLoading: isRegistering,
     isSuccess: isRegistered,
   } = useRegisterMutation();
+
+  const {
+    mutate: handleLogin,
+    isLoading: isLogging,
+    isSuccess: isLogged,
+  } = useLoginMutation();
 
   const consolelog = (email: string, password: string) => {
     console.log(email, password);
@@ -37,7 +43,7 @@ export default function AuthPage() {
               }`}
               style={{ pointerEvents: isLogin ? "auto" : "none" }}
             >
-              <Login registerRedirect={handleClick} loginFunc={consolelog} />
+              <Login registerRedirect={handleClick} loginFunc={handleLogin} />
             </div>
             <div
               className={`absolute inset-0 transition-all duration-300 ${

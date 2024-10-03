@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import FileUpload from "./components/FileUpload";
 import { Box, Button, Snackbar } from "@mui/material";
@@ -14,6 +14,7 @@ import pdf from "../../assets/pdf.svg";
 import png from "../../assets/png.svg";
 import styled from "styled-components";
 import { useQuery } from "react-query";
+import { useAuth } from "../../hooks/useAuth";
 
 const allowedFileTypes = [
   "image/jpeg",
@@ -46,6 +47,10 @@ export default function Form() {
   const [trigger, setTrigger] = useState(true);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const { onAuthSuccess } = useAuth();
+
+  console.log("onAuthSuccess", onAuthSuccess);
+
   // const [fileLimit, setFileLimit] = useState(0);
 
   const StyledSnackbar = styled(Snackbar)(() => ({

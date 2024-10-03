@@ -16,11 +16,17 @@ import { useAuth } from "./hooks/useAuth";
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
+  console.log("ProtectedRoute: isAuthenticated", loading);
+
+  if (loading) {
+    return <div>Carregando...</div>;
   }
+
+  // if (!isAuthenticated && !loading) {
+  //   return <Navigate to="/" replace />;
+  // }
 
   return <>{children}</>;
 };
