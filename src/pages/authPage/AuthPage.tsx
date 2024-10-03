@@ -4,65 +4,20 @@ import Background from "../../assets/gato.jpg";
 import Register from "./Register";
 import Login from "./Login";
 import { useState } from "react";
-import axios from "axios";
+
+import { useRegisterMutation } from "../../hooks/useRegisterMutation";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-
   function handleClick() {
     setIsLogin(!isLogin);
   }
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/");
-      console.log(response.data);
-    } catch (error) {
-      console.error("Erro ao buscar dados:", error);
-    }
-  };
-
-  const handleRegister = async (
-    email: string,
-    password: string,
-    user: string,
-    confirmPassword: string
-  ) => {
-    console.log("bateyyy");
-
-    // if (!email || !confirmPassword || !password || !user) {
-    //   console.log("Preencha todos os campos.");
-    //   return;
-    // }
-
-    // Verifica se os emails coincidem
-    if (password !== confirmPassword) {
-      setError("As senhas não coincidem.");
-      return;
-    }
-
-    try {
-      const response = await axios.post("http://localhost:3000/auth/register", {
-        name: user,
-        email,
-        password,
-        confirmpassword: password,
-      });
-
-      if (response.status === 201) {
-        setSuccessMessage("Usuário registrado com sucesso.");
-        setError("");
-      }
-    } catch (error: any) {
-      if (error.response && error.response.data) {
-        setError(error.response.data.erro || "Erro ao registrar usuário.");
-      } else {
-        setError("Erro ao conectar com o servidor.");
-      }
-    }
-  };
+  const {
+    mutate: handleRegister,
+    isLoading: isRegistering,
+    isSuccess: isRegistered,
+  } = useRegisterMutation();
 
   const consolelog = (email: string, password: string) => {
     console.log(email, password);

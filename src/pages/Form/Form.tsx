@@ -13,6 +13,7 @@ import mp4 from "../../assets/mp4.svg";
 import pdf from "../../assets/pdf.svg";
 import png from "../../assets/png.svg";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 
 const allowedFileTypes = [
   "image/jpeg",

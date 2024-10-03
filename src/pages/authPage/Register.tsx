@@ -10,20 +10,25 @@ export default function Register({
   registerFunc,
 }: {
   loginRedirect: (event: React.MouseEvent<HTMLParagraphElement>) => void;
-  registerFunc: (
-    email: string,
-    password: string,
-    user: string,
-    confirmPassword: string
-  ) => void;
+  registerFunc: ({
+    email,
+    password,
+    name,
+    confirmpassword,
+  }: {
+    email: string;
+    password: string;
+    name: string;
+    confirmpassword: string;
+  }) => void;
 }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [user, setUser] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [confirmpassword, setConfirmpassword] = React.useState("");
 
   const handleRegister = () => {
-    registerFunc(email, password, user, confirmPassword);
+    registerFunc({ name, email, password, confirmpassword });
   };
 
   return (
@@ -52,7 +57,7 @@ export default function Register({
           placeholder="Enter your user..."
           title="User"
           icon={<PersonOutlineOutlinedIcon />}
-          onChange={(e) => setUser(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
         />
         <TextFieldGiveme
           placeholder="Enter your email..."
@@ -68,7 +73,7 @@ export default function Register({
           icon={<VpnKeyRoundedIcon />}
           onChange={(e) => {
             setPassword(e.target.value);
-            setConfirmPassword(e.target.value);
+            setConfirmpassword(e.target.value);
           }}
         />
       </div>
