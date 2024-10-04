@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect, useCallback } from "react";
-import { jwtDecode } from "jwt-decode"; // Certifique-se de que o import está correto (sem chaves)
+import React, { createContext, useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode"; // Sem chaves, como você mencionou
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -25,9 +25,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       try {
         const decoded: any = jwtDecode(token);
         console.log("Token decodificado:", decoded);
-        const currentTime = Date.now() / 1000;
 
-        if (decoded.exp > currentTime) {
+        const currentTime = Date.now() / 1000; // Tempo atual em segundos
+        const remainingTime = decoded.exp - currentTime; // Tempo restante em segundos
+
+        console.log(`Tempo restante do token: ${remainingTime} segundos`);
+
+        if (remainingTime > 0) {
           console.log("Token válido, ainda não expirado.");
           setIsAuthenticated(true);
         } else {
@@ -62,7 +66,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
       <>
-        {" "}
         {console.log(
           "Renderizando AuthProvider, loading:",
           loading,
@@ -70,7 +73,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           isAuthenticated
         )}
         {!loading && children}
-        {/* Só renderiza o children se não estiver carregando */}{" "}
       </>
     </AuthContext.Provider>
   );

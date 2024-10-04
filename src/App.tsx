@@ -13,28 +13,37 @@ import AuthPage from "./pages/authPage/AuthPage";
 import { AuthProvider } from "./contexts/AuthContext";
 import { useAuth } from "./hooks/useAuth";
 
+// Rota protegida que verifica se o usuário está autenticado
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { isAuthenticated, loading } = useAuth();
 
-  console.log("ProtectedRoute: isAuthenticated", loading);
+  if (loading) {
+    return <div>Carregando...</div>; // Pode ser um spinner de loading
+  }
+
+  if (!isAuthenticated) {
+    // Se o usuário não estiver autenticado, redireciona para a página de login
+    return <Navigate to="/" />;
+  }
+
+  return <>{children}</>; // Renderiza as rotas protegidas se o usuário estiver autenticado
+};
+
+function AppRoutes() {
+  const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
     return <div>Carregando...</div>;
   }
 
-  // if (!isAuthenticated && !loading) {
-  //   return <Navigate to="/" replace />;
-  // }
-
-  return <>{children}</>;
-};
-
-function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<AuthPage />} />
+      <Route
+        path="/"
+        element={isAuthenticated ? <Navigate to="/form" /> : <AuthPage />}
+      />
       <Route
         path="/form"
         element={

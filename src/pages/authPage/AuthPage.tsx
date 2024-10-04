@@ -3,12 +3,17 @@ import Photo from "../../assets/perfil.jpg";
 import Background from "../../assets/gato.jpg";
 import Register from "./Register";
 import Login from "./Login";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Para redirecionar
 import { useLoginMutation } from "../../hooks/useLoginMutation";
 import { useRegisterMutation } from "../../hooks/useRegisterMutation";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate(); // Inicialize o hook do React Router
+
+  // Função para verificar se o token no localStorage é válido
+
   function handleClick() {
     setIsLogin(!isLogin);
   }
@@ -33,7 +38,6 @@ export default function AuthPage() {
     <div className="flex flex-col h-full items-center">
       <div className="h-full flex items-center">
         <main className="lg:w-[1000px]  sm:w-[600px] w-[400px] relative h-[700px] gap-0 p-3 bg-white flex items-center justify-center rounded-3xl shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px]">
-          {/* Wrapper para aplicar a transição */}
           <div className="relative lg:w-[50%] w-full h-full">
             <div
               className={`absolute inset-0 transition-all duration-300 ${
@@ -60,7 +64,7 @@ export default function AuthPage() {
             </div>
           </div>
 
-          <section className="flex-1 w-[50%] relative h-full rounded-2xl overflow-hidden lg:block hidden ">
+          <section className="flex-1 w-[50%] relative h-full rounded-2xl overflow-hidden lg:block hidden">
             <img src={Background} className="object-cover h-full w-full" />
           </section>
 

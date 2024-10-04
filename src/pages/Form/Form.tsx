@@ -13,7 +13,7 @@ import mp4 from "../../assets/mp4.svg";
 import pdf from "../../assets/pdf.svg";
 import png from "../../assets/png.svg";
 import styled from "styled-components";
-import { useQuery } from "react-query";
+import { useUploadAndCreatePublicUrl } from "../../hooks/useFile";
 import { useAuth } from "../../hooks/useAuth";
 
 const allowedFileTypes = [
@@ -43,15 +43,14 @@ const getFileIcon = (fileType: any) => {
 
 export default function Form() {
   const [file, setFile] = useState<File | null>(null);
-  const [inputValue, setInputValue] = useState("aaa");
-  const [trigger, setTrigger] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [inputValue, setInputValue] = useState("");
+  const [trigger, setTrigger] = useState(false);
   const [open, setOpen] = useState(false);
-  const { onAuthSuccess } = useAuth();
-
-  console.log("onAuthSuccess", onAuthSuccess);
+  const token = localStorage.getItem("accessToken");
 
   // const [fileLimit, setFileLimit] = useState(0);
+
+  const [showLink, setShowLink] = useState(false);
 
   const StyledSnackbar = styled(Snackbar)(() => ({
     "& .MuiSnackbarContent-root": {
@@ -64,6 +63,36 @@ export default function Form() {
     },
   }));
 
+  const {
+    mutate: uploadAndCreateUrl,
+    isLoading,
+    isError,
+    error,
+    data,
+    uploadProgress,
+    urlProgress,
+    isSuccess,
+  } = useUploadAndCreatePublicUrl();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTrigger(true);
+
+      if (data?.publicUrlResponse?.webViewLink) {
+        setInputValue(data.publicUrlResponse.webViewLink);
+      }
+      console.log("Data:", data);
+    }
+  }, [isSuccess, data]);
+
+  const handleFileUpload = async (file: File, token: string) => {
+    try {
+      const result = await uploadAndCreateUrl({ file, token });
+      console.log("Upload concluído e URL pública gerada:", result);
+    } catch (err) {
+      console.error("Erro durante o processo:", err);
+    }
+  };
   const handleFileChange = (selectedFile: any) => {
     if (selectedFile && allowedFileTypes.includes(selectedFile.type)) {
       setFile(selectedFile);
@@ -73,6 +102,23 @@ export default function Form() {
       handleOpen();
     }
   };
+
+  const handleSubmit = () => {
+    if (file && token) {
+      handleFileUpload(file, token);
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      // Atrasa a exibição do link para dar tempo à animação de loading
+      const timer = setTimeout(() => {
+        setShowLink(true);
+      }, 500); // Ajuste esse valor conforme necessário
+
+      return () => clearTimeout(timer);
+    }
+  }, [isSuccess]);
 
   const handleCopy = () => {
     console.log("Text copied!");
@@ -85,6 +131,8 @@ export default function Form() {
   const handleOpen = () => {
     setOpen(true);
   };
+
+  console.log("isSuccess", isSuccess);
 
   return (
     <React.Fragment>
@@ -167,7 +215,9 @@ export default function Form() {
             <FileUpload onFileChange={handleFileChange} />
 
             <div
-              className={`relative overflow-hidden transition-all duration-300 ease-out               
+              className={`relative 
+                overflow-hidden 
+                transition-all duration-300 ease-out               
                   ${file ? "h-[80px]" : "h-[0px]"}
               `}
             >
@@ -175,33 +225,35 @@ export default function Form() {
                 <React.Fragment>
                   <div
                     className={`
-                        w-full gap-10 flex absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] transition-all duration-1000 ease-in-out p-5
-                        ${
-                          !trigger
-                            ? "translate-y-4 opacity-0 pointer-events-none"
-                            : "opacity-100"
-                        }
-                      `}
+              w-full gap-10 flex absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] transition-all duration-1000 ease-in-out p-5
+              ${
+                !isSuccess
+                  ? "translate-y-4 opacity-0 pointer-events-none"
+                  : "opacity-100"
+              }
+            `}
                   >
                     <TextFieldGiveme value={inputValue} type="link" />
                     <StyledButton onClick={handleCopy}>Copy</StyledButton>
                   </div>
 
                   <div
-                    className={`absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] transition-all duration-1000 ease-in-out ${
-                      trigger
-                        ? "-translate-y-12 opacity-0 pointer-events-none"
-                        : "opacity-100"
-                    }`}
+                    className={`absolute top-1/2 left-1/2 -translate-x-[50%]  transition-all duration-1000 ease-in-out 
+    ${
+      isSuccess && !isLoading
+        ? "-translate-y-14 opacity-0 pointer-events-none"
+        : "opacity-100 -translate-y-[50%]"
+    }
+  `}
                   >
                     <div
                       className={`relative transition-all duration-1000 ease-in-out w-full h-full 
-                          ${
-                            !loading
-                              ? "scale-8 opacity-0 pointer-events-none"
-                              : "scale-100 opacity-100"
-                          }
-                        `}
+      ${
+        isLoading
+          ? "scale-100 opacity-100"
+          : "scale-8 opacity-0 pointer-events-none"
+      }
+    `}
                     >
                       <Dots />
                     </div>
@@ -211,7 +263,7 @@ export default function Form() {
                 <React.Fragment>
                   <div
                     className={`${
-                      loading
+                      isLoading || (isSuccess && !isLoading)
                         ? "opacity-0 scale-100 translate-y-4 pointer-events-none"
                         : "opacity-100 scale-100 translate-y-0"
                     } flex justify-between w-full transition-all duration-500 ease-in-out`}
@@ -255,7 +307,7 @@ export default function Form() {
                           boxShadow: "none",
                         },
                       }}
-                      onClick={() => setLoading(false)}
+                      onClick={handleSubmit}
                     >
                       Create link
                     </Button>
