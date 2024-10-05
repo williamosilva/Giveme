@@ -1,11 +1,16 @@
 import React, { createContext, useState, useEffect } from "react";
-import { jwtDecode } from "jwt-decode"; // Sem chaves, como você mencionou
+import { refreshAccessToken } from "../hooks/useToken";
+import { jwtDecode } from "jwt-decode";
 
 interface AuthContextType {
   isAuthenticated: boolean;
   loading: boolean;
   login: (token: string) => void;
   logout: () => void;
+  justLoggedOut: boolean;
+  justLoggedIn: boolean;
+  clearLogoutIndicator: () => void;
+  clearLoginIndicator: () => void;
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -14,30 +19,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [loading, setLoading] = useState(true); // Estado para verificar o carregamento
+  const [loading, setLoading] = useState<boolean>(true);
+  const [justLoggedOut, setJustLoggedOut] = useState<boolean>(false);
+  const [justLoggedIn, setJustLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("useEffect: Verificando token...");
+    console.log("Verificando token...");
     const token = localStorage.getItem("accessToken");
 
     if (token) {
-      console.log("Token encontrado:", token);
       try {
         const decoded: any = jwtDecode(token);
-        console.log("Token decodificado:", decoded);
+        const currentTime = Date.now() / 1000;
 
-        const currentTime = Date.now() / 1000; // Tempo atual em segundos
-        const remainingTime = decoded.exp - currentTime; // Tempo restante em segundos
-
-        console.log(`Tempo restante do token: ${remainingTime} segundos`);
-
-        if (remainingTime > 0) {
-          console.log("Token válido, ainda não expirado.");
+        if (decoded.exp > currentTime) {
           setIsAuthenticated(true);
         } else {
-          console.log("Token expirado, removendo token...");
-          localStorage.removeItem("accessToken");
-          setIsAuthenticated(false);
+          console.log("Token expirado. Tentando renovar...");
+          refreshAccessToken()
+            .then(() => setIsAuthenticated(true))
+            .catch(() => {
+              localStorage.removeItem("accessToken");
+              setIsAuthenticated(false);
+            });
         }
       } catch (error) {
         console.error("Erro ao decodificar o token:", error);
@@ -45,35 +49,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsAuthenticated(false);
       }
     } else {
-      console.log("Nenhum token encontrado.");
       setIsAuthenticated(false);
     }
-    setLoading(false); // O carregamento termina após a verificação do token
+    setLoading(false);
   }, []);
 
   const login = (token: string) => {
-    console.log("login: Salvando token no localStorage e autenticando...");
     localStorage.setItem("accessToken", token);
     setIsAuthenticated(true);
+    setJustLoggedIn(true);
+    setJustLoggedOut(false);
   };
 
   const logout = () => {
-    console.log("logout: Removendo token do localStorage e desautenticando...");
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     setIsAuthenticated(false);
+    setJustLoggedIn(false);
+    setJustLoggedOut(true);
+  };
+
+  const clearLogoutIndicator = () => {
+    setJustLoggedOut(false);
+  };
+
+  const clearLoginIndicator = () => {
+    setJustLoggedIn(false);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
-      <>
-        {console.log(
-          "Renderizando AuthProvider, loading:",
-          loading,
-          "isAuthenticated:",
-          isAuthenticated
-        )}
-        {!loading && children}
-      </>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        login,
+        logout,
+        loading,
+        justLoggedOut,
+        clearLogoutIndicator,
+        justLoggedIn,
+        clearLoginIndicator,
+      }}
+    >
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

@@ -16,6 +16,7 @@ export default function Footer() {
       <div className="relative flex flex-col items-center">
         <div className="w-52 z-[1] h-fit opacity-30 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[120%]">
           <img
+            draggable={false}
             src={CreatedText}
             alt="Created by"
             className="w-full h-full object-contain"
@@ -28,7 +29,7 @@ export default function Footer() {
               url: "https://www.linkedin.com/in/williamsilva2005/",
             },
             { name: "github", url: "https://github.com/WilliamSilvaOliveiraa" },
-            { name: "william", url: "https://seu-site.com" },
+            { name: "william", url: "https://williamoliveirasilva.online/" },
           ].map((icon) => (
             <li
               key={icon.name}
@@ -74,7 +75,7 @@ export default function Footer() {
             </li>
           ))}
         </ul>
-        <p className="text-[#8787fa] text-sm font-regular mt-4">
+        <p className="text-[#8787fa] text-sm font-regular mt-4 select-none">
           © 2024 Giveme
         </p>
       </div>

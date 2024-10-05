@@ -13,5 +13,9 @@ export const useAuth = () => {
     login: context.login,
     logout: context.logout,
     loading: context.loading,
+    justLoggedOut: context.justLoggedOut,
+    clearLogoutIndicator: context.clearLogoutIndicator,
+    justLoggedIn: context.justLoggedIn,
+    clearLoginIndicator: context.clearLoginIndicator,
   };
 };

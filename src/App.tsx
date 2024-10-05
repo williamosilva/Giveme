@@ -8,27 +8,26 @@ import {
 import StyledBackground from "./components/StyledBackground";
 import "./App.css";
 import Form from "./pages/Form/Form";
+import Error404 from "./pages/404/Erro404"; // Importe a página de erro 404
 import LinkListing from "./pages/linkListing/LinkListing";
 import AuthPage from "./pages/authPage/AuthPage";
 import { AuthProvider } from "./contexts/AuthContext";
 import { useAuth } from "./hooks/useAuth";
 
-// Rota protegida que verifica se o usuário está autenticado
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div>Carregando...</div>; // Pode ser um spinner de loading
+    return <div>Carregando...</div>;
   }
 
   if (!isAuthenticated) {
-    // Se o usuário não estiver autenticado, redireciona para a página de login
     return <Navigate to="/" />;
   }
 
-  return <>{children}</>; // Renderiza as rotas protegidas se o usuário estiver autenticado
+  return <>{children}</>;
 };
 
 function AppRoutes() {
@@ -60,6 +59,8 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+      <Route path="*" element={<Error404 />} />
     </Routes>
   );
 }

@@ -83,8 +83,13 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileChange }) => {
         type="file"
         onChange={handleFileChange}
       />
-      <div className="w-12 h-12">
-        <img src={icon} alt="icon" className="w-full h-full object-contain" />
+      <div className="w-12 h-12 ">
+        <img
+          src={icon}
+          alt="icon"
+          className="w-full h-full object-contain select-none pointer-events-none"
+          draggable="false"
+        />
       </div>
 
       <Box
@@ -92,7 +97,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileChange }) => {
           marginTop: "10px",
           color: "#2b2a33",
           fontSize: 16,
-
+          userSelect: "none",
           "@media (max-width: 400px)": {
             fontSize: 14,
           },
@@ -109,10 +114,11 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileChange }) => {
             <label htmlFor="file-upload">
               <CustomFileLink>Choose File</CustomFileLink>
             </label>
-            <p className="text-xs text-[#6d6c75]">
+            <p className="text-xs text-[#6d6c75] mt-2">
               {" "}
               Supported formats: MP4, PDF, JPG, PNG, MP3
             </p>
+            <p className="text-xs text-[#6d6c75]"> File size limit: 4MB</p>
           </>
         )}
       </Box>

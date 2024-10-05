@@ -31,6 +31,12 @@ export default function Register({
     registerFunc({ name, email, password, confirmpassword });
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleRegister();
+    }
+  };
+
   return (
     <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between sm:p-12 p-5">
       <div className="h-full flex items-start w-full">
@@ -71,10 +77,12 @@ export default function Register({
           placeholder="Enter your password..."
           title="Password"
           icon={<VpnKeyRoundedIcon />}
+          type={"password"}
           onChange={(e) => {
             setPassword(e.target.value);
             setConfirmpassword(e.target.value);
           }}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className="w-full h-full flex items-end">

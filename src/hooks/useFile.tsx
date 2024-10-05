@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useMutation } from "react-query";
+import { isTokenExpired, refreshAccessToken } from "../hooks/useToken";
 
 // Interfaces
 interface UploadFileParams {
@@ -15,24 +16,21 @@ interface UploadResponse {
     id: string;
     name: string;
     mimeType: string;
+    link: string; // Adiciona o campo 'link' para a URL pública
   };
 }
 
-interface CreatePublicUrlParams {
-  fileId: string;
-  token: string;
-}
-
-interface PublicUrlResponse {
-  webViewLink: string;
-  webContentLink: string;
-}
-
-// Hook de Upload
+// Função para fazer upload do arquivo
 const uploadFile = async ({
   file,
   token,
 }: UploadFileParams): Promise<UploadResponse> => {
+  // Verifique se o token expirou
+  if (!token || isTokenExpired(token)) {
+    console.log("Token expirado, tentando renovar...");
+    token = await refreshAccessToken();
+  }
+
   const formData = new FormData();
   formData.append("file", file);
 
@@ -50,13 +48,49 @@ const uploadFile = async ({
   return response.data;
 };
 
-// Hook de Geração de URL Pública
-const createPublicUrl = async ({
-  fileId,
-  token,
-}: CreatePublicUrlParams): Promise<PublicUrlResponse> => {
-  const response = await axios.get<PublicUrlResponse>(
-    `http://localhost:3000/file/public-url/${fileId}`,
+export const useUploadFile = () => {
+  const uploadMutation = useMutation(uploadFile);
+
+  const mutate = async (params: UploadFileParams) => {
+    try {
+      const uploadResponse = await uploadMutation.mutateAsync(params);
+      return uploadResponse;
+    } catch (error) {
+      // Captura a mensagem de erro do backend
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMessage = error.response.data.Erro || "Erro desconhecido";
+        throw new Error(errorMessage);
+      }
+      throw error; // Para outros tipos de erro
+    }
+  };
+
+  const reset = () => {
+    uploadMutation.reset();
+  };
+
+  return {
+    mutate,
+    isLoading: uploadMutation.isLoading,
+    isError: uploadMutation.isError,
+    isSuccess: uploadMutation.isSuccess,
+    error: uploadMutation.error,
+    data: uploadMutation.data,
+    reset,
+  };
+};
+
+const deleteFile = async (fileId: string) => {
+  let token = localStorage.getItem("accessToken");
+
+  // Verifique se o token expirou
+  if (!token || isTokenExpired(token)) {
+    console.log("Token expirado, tentando renovar...");
+    token = await refreshAccessToken();
+  }
+
+  const response = await axios.delete(
+    `http://localhost:3000/file/delete/${fileId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -66,51 +100,33 @@ const createPublicUrl = async ({
 
   return response.data;
 };
+export const useDeleteFile = () => {
+  const deleteMutation = useMutation(deleteFile);
 
-// Hook combinado
-export const useUploadAndCreatePublicUrl = () => {
-  const uploadMutation = useMutation(uploadFile);
-  const createPublicUrlMutation = useMutation(createPublicUrl);
+  const mutate = (fileId: string, options?: { onSuccess?: () => void }) => {
+    return deleteMutation.mutate(fileId, {
+      onSuccess: (data) => {
+        if (options?.onSuccess) {
+          options.onSuccess();
+        }
+      },
+      onError: (error) => {
+        throw error;
+      },
+    });
+  };
 
-  const mutate = async (params: UploadFileParams) => {
-    try {
-      // Primeiro, faz o upload
-      const uploadResponse = await uploadMutation.mutateAsync(params);
-
-      // Se o upload for bem-sucedido, gera a URL pública
-      if (uploadResponse.uploadInfo.id) {
-        const publicUrlResponse = await createPublicUrlMutation.mutateAsync({
-          fileId: uploadResponse.uploadInfo.id,
-          token: params.token,
-        });
-
-        return {
-          uploadResponse,
-          publicUrlResponse,
-        };
-      }
-    } catch (error) {
-      throw error;
-    }
+  const reset = () => {
+    deleteMutation.reset();
   };
 
   return {
     mutate,
-    isLoading: uploadMutation.isLoading || createPublicUrlMutation.isLoading,
-    isError: uploadMutation.isError || createPublicUrlMutation.isError,
-    isSuccess: uploadMutation.isSuccess && createPublicUrlMutation.isSuccess,
-    error: uploadMutation.error || createPublicUrlMutation.error,
-    uploadProgress: uploadMutation.isLoading ? "Fazendo upload..." : "",
-    urlProgress: createPublicUrlMutation.isLoading
-      ? "Gerando URL pública..."
-      : "",
-    // Adicionando os dados das respostas
-    data:
-      uploadMutation.data && createPublicUrlMutation.data
-        ? {
-            uploadResponse: uploadMutation.data,
-            publicUrlResponse: createPublicUrlMutation.data,
-          }
-        : undefined,
+    isLoading: deleteMutation.isLoading,
+    isError: deleteMutation.isError,
+    isSuccess: deleteMutation.isSuccess,
+    error: deleteMutation.error,
+    data: deleteMutation.data,
+    reset,
   };
 };

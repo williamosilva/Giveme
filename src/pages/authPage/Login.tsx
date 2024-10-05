@@ -2,7 +2,7 @@ import TextFieldGiveme from "../../components/TextField";
 import ButtonGiveme from "../../components/Button";
 import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Login({
   registerRedirect,
@@ -11,11 +11,22 @@ export default function Login({
   registerRedirect: (event: React.MouseEvent<HTMLParagraphElement>) => void;
   loginFunc: ({ email, password }: { email: string; password: string }) => void;
 }) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleLogin = () => {
     loginFunc({ email, password });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
   };
 
   return (
@@ -47,10 +58,12 @@ export default function Login({
         />
         <TextFieldGiveme
           placeholder="Enter your password..."
+          type={"password"}
           title="Password"
           icon={<VpnKeyRoundedIcon />}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className="w-full h-full flex items-end">
