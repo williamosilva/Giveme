@@ -4,7 +4,7 @@ import React, { useState } from "react";
 // Component imports
 import TextFieldGiveme from "@components/TextField";
 import ButtonGiveme from "@components/Button";
-import Logo from "@assets/logo.svg";
+import Logo from "@assets/Logo.svg";
 
 // MUI Icon imports
 import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
