@@ -1,38 +1,29 @@
-import axios from "axios";
 import { useMutation } from "react-query";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "./useAuth";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
+
+interface LogoutResponse {
+  message: string;
+}
 
 export const useLogoutMutation = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
-  return useMutation({
-    mutationFn: (refreshToken: string) => {
-      const accessToken = localStorage.getItem("accessToken");
-
-      return axios
-        .post(
-          "http://localhost:3000/auth/logout",
-          { refreshToken },
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        )
-        .then((res) => {
-          // console.log("Response data do logout:", res.data);
-          return res.data;
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          throw error;
+  return useMutation<LogoutResponse, Error, string>({
+    mutationFn: async (refreshToken: string) => {
+      try {
+        const response = await api.post<LogoutResponse>("/auth/logout", {
+          refreshToken,
         });
+        return response.data;
+      } catch (error) {
+        console.error("Error:", error);
+        throw error;
+      }
     },
     onSuccess: (data) => {
-      // console.log("Logout successful:", data);
-
       // Limpa os tokens do localStorage
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
@@ -41,7 +32,7 @@ export const useLogoutMutation = () => {
       // Chama a função de logout do hook de autenticação
       logout();
 
-      // Redireciona para a página inicial ou outra página desejada
+      // Redireciona para a página inicial
       navigate("/");
     },
     onError: (error) => {

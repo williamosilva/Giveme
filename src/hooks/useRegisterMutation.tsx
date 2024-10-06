@@ -1,8 +1,9 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "./useAuth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import api from "../services/api";
 
 interface RegisterData {
   name: string;
@@ -33,28 +34,22 @@ export const useRegisterMutation = () => {
     AxiosError<RegisterError>,
     RegisterData
   >({
-    mutationFn: ({ name, email, password, confirmpassword }) => {
-      return axios
-        .post<RegisterResponse>("http://localhost:3000/auth/register", {
-          name,
-          email,
-          password,
-          confirmpassword,
-        })
-        .then((res) => {
-          // console.log("Response data:", res.data);
-          localStorage.setItem("userId", res.data.userId);
-          return res.data;
-        });
+    mutationFn: async (registerData) => {
+      const response = await api.post<RegisterResponse>(
+        "/auth/register",
+        registerData
+      );
+      localStorage.setItem("userId", response.data.userId);
+      return response.data;
     },
     onSuccess: (data) => {
-      // console.log("Data successfully posted:", data);
       setErrorMessage(null);
 
       if (data.accessToken) {
         login(data.accessToken);
         localStorage.setItem("accessToken", data.accessToken);
       }
+
       if (data.refreshToken) {
         localStorage.setItem("refreshToken", data.refreshToken);
       }
@@ -62,21 +57,19 @@ export const useRegisterMutation = () => {
       navigate("/form");
     },
     onError: (error: AxiosError<RegisterError>) => {
-      console.error("Error during mutation:", error);
+      console.error("Error during registration:", error);
+
       if (error.response) {
-        // O servidor respondeu com um status fora do intervalo 2xx
         setErrorMessage(
           error.response.data.erro ||
             error.response.data.message ||
             "Unknown error during registration"
         );
       } else if (error.request) {
-        // A requisição foi feita mas não houve resposta
         setErrorMessage(
           "Unable to connect to the server. Please try again later."
         );
       } else {
-        // Algo aconteceu na configuração da requisição que causou o erro
         setErrorMessage(
           "An error occurred while trying to register. Please try again."
         );

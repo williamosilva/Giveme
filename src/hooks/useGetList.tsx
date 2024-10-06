@@ -1,32 +1,16 @@
-import axios from "axios";
 import { useQuery } from "react-query";
-import { isTokenExpired, refreshAccessToken } from "../hooks/useToken";
-import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
-// Função para buscar o usuário por ID no backend
 const fetchUserListById = async (id: string) => {
-  let token = localStorage.getItem("accessToken");
-
-  // Verifique se o token expirou
-  if (!token || isTokenExpired(token)) {
-    // console.log("Token expirado, tentando renovar...");
-    token = await refreshAccessToken();
+  try {
+    // console.log("Iniciando fetchUserListById para ID:", id);
+    const response = await api.get(`/user/getList/${id}`);
+    // console.log("Resposta recebida para fetchUserListById:", response.data);
+    return response.data.uploads;
+  } catch (error) {
+    console.error("Erro em fetchUserListById:", error);
+    throw error;
   }
-
-  return axios
-    .get(`http://localhost:3000/user/getList/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((res) => {
-      // console.log("List:", res.data.uploads);
-      return res.data.uploads;
-    })
-    .catch((error) => {
-      console.error("Error fetching user by ID:", error);
-      throw error;
-    });
 };
 
 export const useGetUserById = (id: string) => {
@@ -35,10 +19,10 @@ export const useGetUserById = (id: string) => {
     queryFn: () => fetchUserListById(id),
     enabled: !!id,
     onSuccess: (data) => {
-      // console.log("User fetched successfully:", data);
+      // console.log("Dados do usuário obtidos com sucesso:", data);
     },
     onError: (error) => {
-      console.error("Error fetching user:", error);
+      console.error("Erro ao obter dados do usuário:", error);
     },
   });
 };

@@ -1,10 +1,12 @@
-import axios from "axios";
-import { useMutation } from "react-query";
-import { isTokenExpired, refreshAccessToken } from "../hooks/useToken";
+// src/hooks/useFileOperations.ts
 
+import { useMutation } from "react-query";
+import api from "../services/api";
+
+// Tipos
 interface UploadFileParams {
   file: File;
-  token: string;
+  token: string; // Mantido para compatibilidade, mas não será usado
 }
 
 interface UploadResponse {
@@ -19,29 +21,18 @@ interface UploadResponse {
   };
 }
 
+// Hook de Upload
 const uploadFile = async ({
   file,
-  token,
 }: UploadFileParams): Promise<UploadResponse> => {
-  // Verifique se o token expirou
-  if (!token || isTokenExpired(token)) {
-    // console.log("Token expirado, tentando renovar...");
-    token = await refreshAccessToken();
-  }
-
   const formData = new FormData();
   formData.append("file", file);
 
-  const response = await axios.post<UploadResponse>(
-    "http://localhost:3000/file/upload",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await api.post<UploadResponse>("/file/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return response.data;
 };
@@ -53,18 +44,13 @@ export const useUploadFile = () => {
     try {
       const uploadResponse = await uploadMutation.mutateAsync(params);
       return uploadResponse;
-    } catch (error) {
-      // Captura a mensagem de erro do backend
-      if (axios.isAxiosError(error) && error.response) {
+    } catch (error: any) {
+      if (error.response) {
         const errorMessage = error.response.data.Erro || "Erro desconhecido";
         throw new Error(errorMessage);
       }
       throw error;
     }
-  };
-
-  const reset = () => {
-    uploadMutation.reset();
   };
 
   return {
@@ -74,28 +60,13 @@ export const useUploadFile = () => {
     isSuccess: uploadMutation.isSuccess,
     error: uploadMutation.error,
     data: uploadMutation.data,
-    reset,
+    reset: uploadMutation.reset,
   };
 };
 
+// Hook de Delete
 const deleteFile = async (fileId: string) => {
-  let token = localStorage.getItem("accessToken");
-
-  // Verifique se o token expirou
-  if (!token || isTokenExpired(token)) {
-    // console.log("Token expirado, tentando renovar...");
-    token = await refreshAccessToken();
-  }
-
-  const response = await axios.delete(
-    `http://localhost:3000/file/delete/${fileId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
+  const response = await api.delete(`/file/delete/${fileId}`);
   return response.data;
 };
 
@@ -115,10 +86,6 @@ export const useDeleteFile = () => {
     });
   };
 
-  const reset = () => {
-    deleteMutation.reset();
-  };
-
   return {
     mutate,
     isLoading: deleteMutation.isLoading,
@@ -126,6 +93,6 @@ export const useDeleteFile = () => {
     isSuccess: deleteMutation.isSuccess,
     error: deleteMutation.error,
     data: deleteMutation.data,
-    reset,
+    reset: deleteMutation.reset,
   };
 };

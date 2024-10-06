@@ -32,8 +32,6 @@ export default function AuthPage() {
   const { mutation: registerMutation, errorMessage: registerErrorMessage } =
     useRegisterMutation();
 
-  const { mutate: handleLogin, error: loginMutationError } = useLoginMutation();
-
   useEffect(() => {
     if (auth?.justLoggedOut) {
       const timer = setTimeout(() => {
@@ -62,6 +60,8 @@ export default function AuthPage() {
       },
     });
   };
+
+  const { mutate: handleLogin, error: loginMutationError } = useLoginMutation();
 
   const performLogin = (loginData: any) => {
     handleLogin(loginData, {

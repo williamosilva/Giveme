@@ -1,18 +1,29 @@
-import React from "react";
+// React Imports
+import React, { useEffect } from "react";
+
+// React Router Imports
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
+
+// Component Imports
 import StyledBackground from "./components/StyledBackground";
-import "./App.css";
 import Form from "./pages/Form/Form";
-import Error404 from "./pages/404/Erro404"; // Importe a página de erro 404
+import Error404 from "./pages/404/Erro404";
 import LinkListing from "./pages/linkListing/LinkListing";
 import AuthPage from "./pages/authPage/AuthPage";
+
+// Context Imports
 import { AuthProvider } from "./contexts/AuthContext";
+
+// Hook Imports
 import { useAuth } from "./hooks/useAuth";
+
+// Style Imports
+import "./App.css";
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
