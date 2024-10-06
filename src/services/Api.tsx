@@ -56,11 +56,11 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    console.log(
-      "Erro na resposta:",
-      originalRequest.url,
-      error.response?.status
-    );
+    // console.log(
+    //   "Erro na resposta:",
+    //   originalRequest.url,
+    //   error.response?.status
+    // );
 
     if (publicRoutes.some((route) => originalRequest.url?.includes(route))) {
       //   console.log("Erro em rota pública, não tentando renovar token");

@@ -3,10 +3,9 @@
 import { useMutation } from "react-query";
 import api from "../services/api";
 
-// Tipos
+// Types
 interface UploadFileParams {
   file: File;
-  token: string; // Mantido para compatibilidade, mas não será usado
 }
 
 interface UploadResponse {
@@ -21,13 +20,15 @@ interface UploadResponse {
   };
 }
 
-// Hook de Upload
+// Hook for Upload
 const uploadFile = async ({
   file,
 }: UploadFileParams): Promise<UploadResponse> => {
   const formData = new FormData();
   formData.append("file", file);
 
+  // The token refresh logic is handled in the API service,
+  // so we can just call the API directly.
   const response = await api.post<UploadResponse>("/file/upload", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -46,7 +47,7 @@ export const useUploadFile = () => {
       return uploadResponse;
     } catch (error: any) {
       if (error.response) {
-        const errorMessage = error.response.data.Erro || "Erro desconhecido";
+        const errorMessage = error.response.data.Erro || "Unknown error";
         throw new Error(errorMessage);
       }
       throw error;
@@ -64,7 +65,7 @@ export const useUploadFile = () => {
   };
 };
 
-// Hook de Delete
+// Hook for Delete
 const deleteFile = async (fileId: string) => {
   const response = await api.delete(`/file/delete/${fileId}`);
   return response.data;

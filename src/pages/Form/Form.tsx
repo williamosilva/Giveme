@@ -78,9 +78,9 @@ export default function Form() {
     reset,
   } = useUploadFile();
 
-  const handleFileUpload = async (file: File, token: string) => {
+  const handleFileUpload = async (file: File) => {
     try {
-      const result = await uploadAndCreateUrl({ file, token });
+      const result = await uploadAndCreateUrl({ file });
       // console.log("Upload concluído e URL pública gerada:", result);
     } catch (err: string | any) {
       console.error("Erro durante o processo:", err);
@@ -141,8 +141,8 @@ export default function Form() {
   };
 
   const handleSubmit = () => {
-    if (file && token) {
-      handleFileUpload(file, token);
+    if (file) {
+      handleFileUpload(file);
     }
   };
 
