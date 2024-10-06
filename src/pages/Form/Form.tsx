@@ -1,23 +1,38 @@
+// React imports
 import React, { useContext, useEffect, useState } from "react";
+
+// CSS styles
 import "./style.css";
+
+// Component imports
 import FileUpload from "./components/FileUpload";
-import { Box, Button, IconButton } from "@mui/material";
 import Footer from "../../components/Footer";
-import jpg from "../../assets/jpg.svg";
 import TextFieldGiveme from "../../components/TextField";
 import StyledButton from "./components/StyledButton";
 import Dots from "../../components/Dot";
-import mp3 from "../../assets/mp3.svg";
+import { StyledSnackbar } from "../../components/StyledSnackbar";
+
+// MUI component imports
+import { Box, Button, IconButton } from "@mui/material";
 import PriorityHighRoundedIcon from "@mui/icons-material/PriorityHighRounded";
-import mp4 from "../../assets/mp4.svg";
-import pdf from "../../assets/pdf.svg";
-import { useNavigate } from "react-router-dom";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+
+// Asset imports
+import jpg from "../../assets/jpg.svg";
+import mp3 from "../../assets/mp3.svg";
+import mp4 from "../../assets/mp4.svg";
+import pdf from "../../assets/pdf.svg";
 import png from "../../assets/png.svg";
-import { StyledSnackbar } from "../../components/StyledSnackbar";
+
+// Router imports
+import { useNavigate } from "react-router-dom";
+
+// Hook imports
 import { useLogoutMutation } from "../../hooks/useLogout";
 import { useUploadFile } from "../../hooks/useFile";
+
+// Context imports
 import { AuthContext } from "../../contexts/AuthContext";
 
 const allowedFileTypes = [
@@ -58,24 +73,15 @@ export default function Form() {
   const {
     mutate: uploadAndCreateUrl,
     isLoading,
-    error: uploadErrorMessage,
     data,
-    uploadProgress,
-    urlProgress,
     isSuccess,
     reset,
   } = useUploadFile();
 
-  // useEffect(() => {
-  //   if (uploadErrorMessage) {
-  //     setUploadError(uploadErrorMessage.message || "Erro desconhecido");
-  //   }
-  // }, [uploadErrorMessage]);
-
   const handleFileUpload = async (file: File, token: string) => {
     try {
       const result = await uploadAndCreateUrl({ file, token });
-      console.log("Upload concluído e URL pública gerada:", result);
+      // console.log("Upload concluído e URL pública gerada:", result);
     } catch (err: string | any) {
       console.error("Erro durante o processo:", err);
       setUploadError(err.message || "Erro desconhecido");
@@ -101,7 +107,7 @@ export default function Form() {
       if (data?.uploadInfo?.link) {
         setInputValue(data.uploadInfo.link);
       }
-      console.log("Data:", data);
+      // console.log("Data:", data);
     }
   }, [isSuccess, data]);
 
@@ -130,8 +136,8 @@ export default function Form() {
     }
 
     setFile(selectedFile);
-    console.log("File type:", selectedFile.type);
-    console.log("File size:", selectedFile.size);
+    // console.log("File type:", selectedFile.type);
+    // console.log("File size:", selectedFile.size);
   };
 
   const handleSubmit = () => {
@@ -145,7 +151,7 @@ export default function Form() {
     navigator.clipboard
       .writeText(textToCopy)
       .then(() => {
-        console.log("Text copied!");
+        // console.log("Text copied!");
       })
       .catch((err) => {
         console.error("Failed to copy text: ", err);
@@ -180,7 +186,7 @@ export default function Form() {
     <React.Fragment>
       <StyledSnackbar
         open={!!uploadError}
-        autoHideDuration={3000}
+        autoHideDuration={6000}
         onClose={() => setUploadError(null)}
         message={
           <div className="flex gap-2 justify-center items-center">
@@ -217,22 +223,7 @@ export default function Form() {
           </div>
         }
       />
-      <StyledSnackbar
-        open={false}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={
-          <div className="flex gap-2 justify-center items-center">
-            <PriorityHighRoundedIcon
-              fontSize="small"
-              sx={{ color: "#4747FF" }}
-            />
-            <p className="align-middle leading-none ">
-              Upload limit reached! Delete any of your files to continue...
-            </p>
-          </div>
-        }
-      />
+
       <div className="flex flex-col justify-center items-center w-full h-full p-6 relative z-[2] gap-2">
         <div className="flex flex-col items-center w-full h-fit justify-center">
           <IconButton

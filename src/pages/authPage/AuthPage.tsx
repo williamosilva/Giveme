@@ -1,13 +1,24 @@
+// Component imports
 import Footer from "../../components/Footer";
-import Photo from "../../assets/perfil.jpg";
-import Background from "../../assets/gato.jpg";
 import Register from "./Register";
 import Login from "./Login";
-import { AuthContext } from "../../contexts/AuthContext";
+import { StyledSnackbar } from "../../components/StyledSnackbar";
+
+// Asset imports
+import Photo from "../../assets/perfil.jpg";
+import Background from "../../assets/gato.jpg";
+
+// React imports
 import { useState, useEffect, useContext } from "react";
+
+// Context imports
+import { AuthContext } from "../../contexts/AuthContext";
+
+// Hook imports
 import { useLoginMutation } from "../../hooks/useLoginMutation";
 import { useRegisterMutation } from "../../hooks/useRegisterMutation";
-import { StyledSnackbar } from "../../components/StyledSnackbar";
+
+// MUI Icon imports
 import WavingHandRoundedIcon from "@mui/icons-material/WavingHandRounded";
 import PriorityHighRoundedIcon from "@mui/icons-material/PriorityHighRounded";
 
@@ -21,16 +32,10 @@ export default function AuthPage() {
   const { mutation: registerMutation, errorMessage: registerErrorMessage } =
     useRegisterMutation();
 
-  const {
-    mutate: handleLogin,
-    isLoading: isLogging,
-    isSuccess: isLogged,
-    error: loginMutationError,
-  } = useLoginMutation();
+  const { mutate: handleLogin, error: loginMutationError } = useLoginMutation();
 
   useEffect(() => {
     if (auth?.justLoggedOut) {
-      console.log("Just logged out");
       const timer = setTimeout(() => {
         auth.clearLogoutIndicator();
       }, 5000);
@@ -84,7 +89,7 @@ export default function AuthPage() {
     <>
       <StyledSnackbar
         open={auth?.justLoggedOut || false}
-        autoHideDuration={10000}
+        autoHideDuration={6000}
         onClose={handleCloseSnackbar}
         message={
           <div className="flex gap-3 justify-center items-center">
@@ -95,7 +100,7 @@ export default function AuthPage() {
       />
       <StyledSnackbar
         open={!!loginError}
-        autoHideDuration={3000}
+        autoHideDuration={6000}
         onClose={() => setLoginError(null)}
         message={
           <div className="flex gap-2 justify-center items-center">
@@ -109,7 +114,7 @@ export default function AuthPage() {
       />
       <StyledSnackbar
         open={!!registerError}
-        autoHideDuration={3000}
+        autoHideDuration={6000}
         onClose={() => setLoginError(null)}
         message={
           <div className="flex gap-2 justify-center items-center">
@@ -166,7 +171,7 @@ export default function AuthPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <p className="text-base text-[#4747FF] font-bold tracking-tight">
+                  <p className="text-base text-[#4747FF] font-bold tracking-tight hover:text-[#13134a] transition-all duration-300">
                     Contact Me!
                   </p>
                 </a>

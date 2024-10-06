@@ -24,7 +24,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [justLoggedIn, setJustLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("Verificando token...");
+    // Verficar se o token está expirado
     const token = localStorage.getItem("accessToken");
 
     if (token) {
@@ -35,16 +35,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         if (decoded.exp > currentTime) {
           setIsAuthenticated(true);
         } else {
-          console.log("Token expirado. Tentando renovar...");
+          // Token expirado, tentar renovar
+
           refreshAccessToken()
             .then(() => setIsAuthenticated(true))
             .catch(() => {
+              // Se não conseguir renovar, remover o token e deslogar
               localStorage.removeItem("accessToken");
               setIsAuthenticated(false);
             });
         }
       } catch (error) {
-        console.error("Erro ao decodificar o token:", error);
+        // Se não conseguir renovar, remover o token e deslogar
+
         localStorage.removeItem("accessToken");
         setIsAuthenticated(false);
       }

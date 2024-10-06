@@ -9,7 +9,7 @@ const fetchUserListById = async (id: string) => {
 
   // Verifique se o token expirou
   if (!token || isTokenExpired(token)) {
-    console.log("Token expirado, tentando renovar...");
+    // console.log("Token expirado, tentando renovar...");
     token = await refreshAccessToken();
   }
 
@@ -20,7 +20,7 @@ const fetchUserListById = async (id: string) => {
       },
     })
     .then((res) => {
-      console.log("List:", res.data.uploads);
+      // console.log("List:", res.data.uploads);
       return res.data.uploads;
     })
     .catch((error) => {
@@ -35,7 +35,7 @@ export const useGetUserById = (id: string) => {
     queryFn: () => fetchUserListById(id),
     enabled: !!id,
     onSuccess: (data) => {
-      console.log("User fetched successfully:", data);
+      // console.log("User fetched successfully:", data);
     },
     onError: (error) => {
       console.error("Error fetching user:", error);

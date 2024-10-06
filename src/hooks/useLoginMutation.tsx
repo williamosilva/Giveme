@@ -33,14 +33,14 @@ export const useLoginMutation = () => {
           password,
         })
         .then((res) => {
-          console.log("Response data do login:", res.data);
-          console.log("id", res.data.userId);
+          // console.log("Response data do login:", res.data);
+          // console.log("id", res.data.userId);
           localStorage.setItem("userId", res.data.userId);
           return res.data;
         });
     },
     onSuccess: (data) => {
-      console.log("Login successful:", data);
+      // console.log("Login successful:", data);
       setErrorMessage(null);
       if (data.accessToken) {
         login(data.accessToken);

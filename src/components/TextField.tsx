@@ -99,11 +99,10 @@ export default function TextFieldGiveme({
 
   return (
     <div className="relative w-full">
-      <p className="bg-white absolute px-2 bottom-9 z-[2] text-base left-4 font-medium">
+      <p className="bg-white absolute px-2 bottom-9 z-[2] text-base left-4 font-medium rounded-full">
         {title}
       </p>
       <TextFieldComponent
-        id="outlined-basic"
         variant="outlined"
         type={
           type === "password" ? (showPassword ? "text" : "password") : "text"

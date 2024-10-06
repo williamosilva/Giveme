@@ -17,12 +17,12 @@ export const useLogoutMutation = () => {
           { refreshToken },
           {
             headers: {
-              Authorization: `Bearer ${accessToken}`, // Adicionar o token de acesso no cabeçalho
+              Authorization: `Bearer ${accessToken}`,
             },
           }
         )
         .then((res) => {
-          console.log("Response data do logout:", res.data);
+          // console.log("Response data do logout:", res.data);
           return res.data;
         })
         .catch((error) => {
@@ -31,7 +31,7 @@ export const useLogoutMutation = () => {
         });
     },
     onSuccess: (data) => {
-      console.log("Logout successful:", data);
+      // console.log("Logout successful:", data);
 
       // Limpa os tokens do localStorage
       localStorage.removeItem("accessToken");

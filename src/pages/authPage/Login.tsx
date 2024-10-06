@@ -1,8 +1,13 @@
+// React imports
+import React, { useState } from "react";
+
+// Component imports
 import TextFieldGiveme from "../../components/TextField";
 import ButtonGiveme from "../../components/Button";
+
+// MUI Icon imports
 import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import React, { useState } from "react";
 
 export default function Login({
   registerRedirect,
@@ -13,11 +18,6 @@ export default function Login({
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleLogin = () => {
     loginFunc({ email, password });

@@ -3,32 +3,31 @@ import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import icon from "../../../assets/icon.png";
 
-const UploadContainer = styled(Box)<{ isDragging: boolean }>(
-  ({ isDragging }) => ({
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "20px",
-    width: "637px",
-    height: "300px",
-    textAlign: "center",
-    borderRadius: "16px",
-    border: "2px dashed rgba(224, 224, 224, 0.5)",
-    boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
-    transition: "background-color 0.3s, background-image 0.3s",
-    backgroundImage: isDragging
-      ? "linear-gradient(135deg, #f2f4fc 0%, #FAFAFA 100%)"
-      : "linear-gradient(135deg, #f2f4fc 0%, #FAFAFA 100%)",
-    "&:hover": {
-      backgroundColor: "#FFFDF5",
-    },
-
-    "@media (max-width: 684px)": {
-      width: "100%",
-    },
-  })
-);
+const UploadContainer = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "isDragging",
+})<{ isDragging: boolean }>(({ isDragging }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "20px",
+  width: "637px",
+  height: "300px",
+  textAlign: "center",
+  borderRadius: "16px",
+  border: "2px dashed rgba(224, 224, 224, 0.5)",
+  boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
+  transition: "background-color 0.3s, background-image 0.3s",
+  backgroundImage: isDragging
+    ? "linear-gradient(135deg, #f2f4fc 0%, #FAFAFA 100%)"
+    : "linear-gradient(135deg, #f2f4fc 0%, #FAFAFA 100%)",
+  "&:hover": {
+    backgroundColor: "#FFFDF5",
+  },
+  "@media (max-width: 684px)": {
+    width: "100%",
+  },
+}));
 
 const CustomFileLink = styled("span")({
   color: "#4747FF",

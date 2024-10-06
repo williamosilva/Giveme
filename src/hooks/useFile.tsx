@@ -2,7 +2,6 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import { isTokenExpired, refreshAccessToken } from "../hooks/useToken";
 
-// Interfaces
 interface UploadFileParams {
   file: File;
   token: string;
@@ -16,18 +15,17 @@ interface UploadResponse {
     id: string;
     name: string;
     mimeType: string;
-    link: string; // Adiciona o campo 'link' para a URL pública
+    link: string;
   };
 }
 
-// Função para fazer upload do arquivo
 const uploadFile = async ({
   file,
   token,
 }: UploadFileParams): Promise<UploadResponse> => {
   // Verifique se o token expirou
   if (!token || isTokenExpired(token)) {
-    console.log("Token expirado, tentando renovar...");
+    // console.log("Token expirado, tentando renovar...");
     token = await refreshAccessToken();
   }
 
@@ -61,7 +59,7 @@ export const useUploadFile = () => {
         const errorMessage = error.response.data.Erro || "Erro desconhecido";
         throw new Error(errorMessage);
       }
-      throw error; // Para outros tipos de erro
+      throw error;
     }
   };
 
@@ -85,7 +83,7 @@ const deleteFile = async (fileId: string) => {
 
   // Verifique se o token expirou
   if (!token || isTokenExpired(token)) {
-    console.log("Token expirado, tentando renovar...");
+    // console.log("Token expirado, tentando renovar...");
     token = await refreshAccessToken();
   }
 
@@ -100,6 +98,7 @@ const deleteFile = async (fileId: string) => {
 
   return response.data;
 };
+
 export const useDeleteFile = () => {
   const deleteMutation = useMutation(deleteFile);
 

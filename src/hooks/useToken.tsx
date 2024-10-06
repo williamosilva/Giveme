@@ -49,7 +49,7 @@ const fetchWithTokenCheck = async <T,>(queryFn: () => Promise<T>) => {
 
   // Se o token expirou, tenta renovar
   if (decoded.exp < currentTime) {
-    console.log("Token expirado, tentando renovar...");
+    // console.log("Token expirado, tentando renovar...");
     const newToken = await refreshAccessToken();
     // Atualiza o token no cabeçalho Authorization
     axios.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
@@ -78,7 +78,7 @@ function useQueryWithAuth<T>(
       } catch (error: any) {
         // Se a renovação do token falhar, desloga o usuário
         if (error.response?.status === 401) {
-          console.log("Falha na renovação do token, deslogando...");
+          // console.log("Falha na renovação do token, deslogando...");
           logout();
         }
         throw error; // Propaga o erro para o hook de query lidar

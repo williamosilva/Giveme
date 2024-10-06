@@ -25,7 +25,8 @@ const DotsWrapper = styled.div`
   align-items: center;
 `;
 
-const Dot = styled.div<{ delay: string }>`
+const Dot = styled.div<{ $delay: string }>`
+  /* Prop transitória ($delay) */
   width: 12px;
   height: 12px;
   margin: 0 5px;
@@ -33,15 +34,15 @@ const Dot = styled.div<{ delay: string }>`
   border-radius: 50%;
   animation: ${bounce} 1.4s infinite ease-in-out both,
     /* Animação de pulsação */ ${wave} 1.4s infinite ease-in-out both; /* Animação de movimento vertical */
-  animation-delay: ${({ delay }) => delay};
+  animation-delay: ${({ $delay }) => $delay}; /* Uso de $delay */
 `;
 
 const Dots: React.FC = () => {
   return (
     <DotsWrapper>
-      <Dot delay="0s" />
-      <Dot delay="0.2s" />
-      <Dot delay="0.4s" />
+      <Dot $delay="0s" />
+      <Dot $delay="0.2s" />
+      <Dot $delay="0.4s" />
     </DotsWrapper>
   );
 };

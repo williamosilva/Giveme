@@ -42,13 +42,13 @@ export const useRegisterMutation = () => {
           confirmpassword,
         })
         .then((res) => {
-          console.log("Response data:", res.data);
+          // console.log("Response data:", res.data);
           localStorage.setItem("userId", res.data.userId);
           return res.data;
         });
     },
     onSuccess: (data) => {
-      console.log("Data successfully posted:", data);
+      // console.log("Data successfully posted:", data);
       setErrorMessage(null);
 
       if (data.accessToken) {

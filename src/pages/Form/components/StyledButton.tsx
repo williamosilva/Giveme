@@ -92,33 +92,32 @@ const StyledButton: React.FC<StyledButtonProps> = ({ onClick, children }) => {
           transition: "background 0.3s ease-in-out, transform 0.3s ease-in-out",
         }}
       ></span>
-      <style jsx>{`
-        @keyframes pulse {
-          0%,
-          100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.5;
-          }
+      <style>
+        {`
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 1;
         }
-        @keyframes spin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
+        50% {
+          opacity: 0.5;
         }
-        button {
-          transition: background-color 0.3s ease-in-out,
-            transform 0.3s ease-in-out;
+      }
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
         }
-
-        button:active {
-          transform: scale(0.9);
+        to {
+          transform: rotate(360deg);
         }
-      `}</style>
+      }
+      button {
+        transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+      }
+      button:active {
+        transform: scale(0.9);
+      }
+    `}
+      </style>
     </button>
   );
 };

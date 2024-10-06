@@ -1,12 +1,21 @@
+// React imports
+import { useEffect, useState } from "react";
+
+// Component imports
 import CardLink from "./components/cardLink/CardLink";
+import Footer from "../../components/Footer";
+import { StyledSnackbar } from "../../components/StyledSnackbar";
+
+// MUI component and icon imports
 import { CircularProgress, IconButton } from "@mui/material";
 import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
-import Footer from "../../components/Footer";
-import { useNavigate } from "react-router-dom";
-import { useGetUserById } from "../../hooks/useGetList";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import { StyledSnackbar } from "../../components/StyledSnackbar";
-import { useEffect, useState } from "react";
+
+// Router imports
+import { useNavigate } from "react-router-dom";
+
+// Hook imports
+import { useGetUserById } from "../../hooks/useGetList";
 
 export default function LinkListing() {
   const navigate = useNavigate();
@@ -16,14 +25,7 @@ export default function LinkListing() {
     "success"
   );
 
-  const {
-    data: list,
-    isLoading,
-    isError,
-    error,
-    refetch,
-    isFetching,
-  } = useGetUserById(storedUserId);
+  const { data: list, refetch, isFetching } = useGetUserById(storedUserId);
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
@@ -110,11 +112,11 @@ export default function LinkListing() {
             <>
               {list.map((link: any) => (
                 <CardLink
-                  key={link.id}
+                  key={link._id}
                   link={link.link}
                   date={formatDate(link.uploadDate)}
                   fileId={link.fileId}
-                  onDeleteSuccess={refetchList} // Passa a função de refetch como prop
+                  onDeleteSuccess={refetchList}
                 />
               ))}
             </>

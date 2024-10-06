@@ -1,9 +1,14 @@
+// React imports
+import React from "react";
+
+// Component imports
 import TextFieldGiveme from "../../components/TextField";
 import ButtonGiveme from "../../components/Button";
+
+// MUI Icon imports
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
-import React from "react";
 
 export default function Register({
   loginRedirect,
