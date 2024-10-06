@@ -4,6 +4,15 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
+  base: "/",
+  build: {
+    outDir: "dist",
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
   resolve: {
     alias: {
       "@hooks": path.resolve(__dirname, "./src/hooks"),
