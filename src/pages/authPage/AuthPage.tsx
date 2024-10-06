@@ -6,7 +6,7 @@ import { StyledSnackbar } from "../../components/StyledSnackbar";
 
 // Asset imports
 import Photo from "../../assets/perfil.jpg";
-import Background from "../../assets/gato.jpg";
+import Background from "../../assets/background.png";
 
 // React imports
 import { useState, useEffect, useContext } from "react";

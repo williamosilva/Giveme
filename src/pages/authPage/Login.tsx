@@ -4,6 +4,7 @@ import React, { useState } from "react";
 // Component imports
 import TextFieldGiveme from "../../components/TextField";
 import ButtonGiveme from "../../components/Button";
+import Logo from "../../assets/logo.svg";
 
 // MUI Icon imports
 import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
@@ -31,8 +32,12 @@ export default function Login({
 
   return (
     <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between sm:p-12 p-5">
-      <div className="bg-[#4747FF] w-20 h-20 rounded-xl flex items-center justify-center text-white font-medium">
-        Logo
+      <div className=" w-20 h-20 rounded-xl items-center flex justify-center text-white font-medium">
+        <img
+          src={Logo}
+          alt="Logo"
+          className="w-[50%]  h-[50%] object-contain"
+        />
       </div>
       <div className="flex flex-col justify-start gap-3 mb-12">
         <h1 className="sm:text-6xl text-5xl font-black text-neutral-900">
