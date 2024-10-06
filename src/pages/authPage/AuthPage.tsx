@@ -1,22 +1,22 @@
 // Component imports
-import Footer from "../../components/Footer";
+import Footer from "@components/Footer";
 import Register from "./Register";
 import Login from "./Login";
-import { StyledSnackbar } from "../../components/StyledSnackbar";
+import { StyledSnackbar } from "@components/StyledSnackbar";
 
 // Asset imports
-import Photo from "../../assets/perfil.jpg";
-import Background from "../../assets/background.png";
+import Photo from "@assets/perfil.jpg";
+import Background from "@assets/background.png";
 
 // React imports
 import { useState, useEffect, useContext } from "react";
 
 // Context imports
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "@contexts/AuthContext";
 
 // Hook imports
-import { useLoginMutation } from "../../hooks/useLoginMutation";
-import { useRegisterMutation } from "../../hooks/useRegisterMutation";
+import { useLoginMutation } from "@hooks/useLoginMutation";
+import { useRegisterMutation } from "@hooks/useRegisterMutation";
 
 // MUI Icon imports
 import WavingHandRoundedIcon from "@mui/icons-material/WavingHandRounded";

@@ -2,7 +2,7 @@ import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 import CallMadeRoundedIcon from "@mui/icons-material/CallMadeRounded";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { IconButton } from "@mui/material";
-import { useDeleteFile } from "../../../../hooks/useFile";
+import { useDeleteFile } from "@hooks/useFile";
 import "./style.css";
 
 interface CardLinkProps {

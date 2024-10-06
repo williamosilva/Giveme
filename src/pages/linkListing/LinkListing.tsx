@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 
 // Component imports
 import CardLink from "./components/cardLink/CardLink";
-import Footer from "../../components/Footer";
-import { StyledSnackbar } from "../../components/StyledSnackbar";
+import Footer from "@components/Footer";
+import { StyledSnackbar } from "@components/StyledSnackbar";
 
 // MUI component and icon imports
 import { CircularProgress, IconButton } from "@mui/material";
@@ -15,7 +15,7 @@ import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import { useNavigate } from "react-router-dom";
 
 // Hook imports
-import { useGetUserById } from "../../hooks/useGetList";
+import { useGetUserById } from "@hooks/useGetList";
 
 export default function LinkListing() {
   const navigate = useNavigate();

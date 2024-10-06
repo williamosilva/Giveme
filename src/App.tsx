@@ -17,10 +17,10 @@ import LinkListing from "./pages/linkListing/LinkListing";
 import AuthPage from "./pages/authPage/AuthPage";
 
 // Context Imports
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider } from "@contexts/AuthContext";
 
 // Hook Imports
-import { useAuth } from "./hooks/useAuth";
+import { useAuth } from "@hooks/useAuth";
 
 // Style Imports
 import "./App.css";

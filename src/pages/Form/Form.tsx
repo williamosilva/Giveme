@@ -6,11 +6,11 @@ import "./style.css";
 
 // Component imports
 import FileUpload from "./components/FileUpload";
-import Footer from "../../components/Footer";
-import TextFieldGiveme from "../../components/TextField";
+import Footer from "@components/Footer";
+import TextFieldGiveme from "@components/TextField";
 import StyledButton from "./components/StyledButton";
-import Dots from "../../components/Dot";
-import { StyledSnackbar } from "../../components/StyledSnackbar";
+import Dots from "@components/Dot";
+import { StyledSnackbar } from "@components/StyledSnackbar";
 
 // MUI component imports
 import { Box, Button, IconButton } from "@mui/material";
@@ -19,21 +19,21 @@ import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
 // Asset imports
-import jpg from "../../assets/jpg.svg";
-import mp3 from "../../assets/mp3.svg";
-import mp4 from "../../assets/mp4.svg";
-import pdf from "../../assets/pdf.svg";
-import png from "../../assets/png.svg";
+import jpg from "@assets/jpg.svg";
+import mp3 from "@assets/mp3.svg";
+import mp4 from "@assets/mp4.svg";
+import pdf from "@assets/pdf.svg";
+import png from "@assets/png.svg";
 
 // Router imports
 import { useNavigate } from "react-router-dom";
 
 // Hook imports
-import { useLogoutMutation } from "../../hooks/useLogout";
-import { useUploadFile } from "../../hooks/useFile";
+import { useLogoutMutation } from "@hooks/useLogout";
+import { useUploadFile } from "@hooks/useFile";
 
 // Context imports
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "@contexts/AuthContext";
 
 const allowedFileTypes = [
   "image/jpeg",

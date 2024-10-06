@@ -13,7 +13,10 @@
     "baseUrl": "./src",
     "paths": {
       "@hooks/*": ["hooks/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@contexts/*": ["contexts/*"]
     }
   },
   "include": ["src"],

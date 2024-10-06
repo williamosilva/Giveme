@@ -1,4 +1,4 @@
-import error from "../../assets/404.svg";
+import error from "@assets/404.svg";
 import BackButton from "./components/BackButton";
 
 export default function Error404() {

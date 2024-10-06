@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
-import icon from "../../../assets/icon.png";
+import icon from "@assets/icon.png";
 
 const UploadContainer = styled(Box, {
   shouldForwardProp: (prop) => prop !== "isDragging",
