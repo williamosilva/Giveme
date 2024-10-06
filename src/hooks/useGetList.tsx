@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import api from "../services/api";
+import api from "@services/ApiService";
 
 const fetchUserListById = async (id: string) => {
   try {
@@ -18,7 +18,7 @@ export const useGetUserById = (id: string) => {
     queryKey: ["user", id],
     queryFn: () => fetchUserListById(id),
     enabled: !!id,
-    onSuccess: (data) => {
+    onSuccess: () => {
       // console.log("Dados do usuário obtidos com sucesso:", data);
     },
     onError: (error) => {

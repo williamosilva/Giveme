@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions, QueryKey } from "react-query";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "./useAuth";
-import api from "../services/api";
+import api from "@services/ApiService";
 
 interface JwtPayload {
   exp: number;

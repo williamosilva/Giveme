@@ -64,7 +64,6 @@ export default function Form() {
   const [file, setFile] = useState<File | null>(null);
   const [inputValue, setInputValue] = useState("");
   const [open, setOpen] = useState(false);
-  const token = localStorage.getItem("accessToken");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
@@ -80,7 +79,7 @@ export default function Form() {
 
   const handleFileUpload = async (file: File) => {
     try {
-      const result = await uploadAndCreateUrl({ file });
+      await uploadAndCreateUrl({ file });
       // console.log("Upload concluído e URL pública gerada:", result);
     } catch (err: string | any) {
       console.error("Erro durante o processo:", err);

@@ -1,7 +1,7 @@
 // src/hooks/useFileOperations.ts
 
 import { useMutation } from "react-query";
-import api from "../services/api";
+import api from "@services/ApiService";
 
 // Types
 interface UploadFileParams {
@@ -76,7 +76,7 @@ export const useDeleteFile = () => {
 
   const mutate = (fileId: string, options?: { onSuccess?: () => void }) => {
     return deleteMutation.mutate(fileId, {
-      onSuccess: (data) => {
+      onSuccess: () => {
         if (options?.onSuccess) {
           options.onSuccess();
         }

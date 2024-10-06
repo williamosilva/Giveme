@@ -1,7 +1,7 @@
 import { useMutation } from "react-query";
 import { useAuth } from "./useAuth";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
+import api from "@services/ApiService";
 
 interface LogoutResponse {
   message: string;
@@ -23,7 +23,7 @@ export const useLogoutMutation = () => {
         throw error;
       }
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       // Limpa os tokens do localStorage
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");

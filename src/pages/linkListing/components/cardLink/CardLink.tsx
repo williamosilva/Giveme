@@ -18,7 +18,7 @@ export default function CardLink({
   fileId,
   onDeleteSuccess,
 }: CardLinkProps) {
-  const { mutate, isLoading, isError, isSuccess, error } = useDeleteFile();
+  const { mutate } = useDeleteFile();
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(link);

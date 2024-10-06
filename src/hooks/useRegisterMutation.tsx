@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { useAuth } from "./useAuth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import api from "../services/api";
+import api from "@services/ApiService";
 
 interface RegisterData {
   name: string;

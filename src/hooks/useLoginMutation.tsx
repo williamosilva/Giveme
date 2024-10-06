@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { useAuth } from "./useAuth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import api from "../services/api";
+import api from "@services/ApiService";
 
 interface LoginResponse {
   userId: string;
@@ -25,7 +25,7 @@ interface LoginCredentials {
 export const useLoginMutation = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [, setErrorMessage] = useState<string | null>(null);
 
   return useMutation<LoginResponse, AxiosError<LoginError>, LoginCredentials>({
     mutationFn: async (credentials) => {
