@@ -10,7 +10,13 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
 
-const publicRoutes = ["/auth/login", "/auth/register", "/token/refresh-token"];
+const publicRoutes = [
+  "/auth/login",
+  "/auth/register",
+  "/token/refresh-token",
+  "/google/handleCallback",
+  "/google/getAuthUrl",
+];
 
 api.interceptors.request.use(
   async (config) => {

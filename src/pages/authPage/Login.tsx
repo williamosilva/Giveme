@@ -1,5 +1,6 @@
 // React imports
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 // Component imports
 import TextFieldGiveme from "@components/TextField";
@@ -19,6 +20,10 @@ export default function Login({
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [authCode, setAuthCode] = useState("");
+  const [tokens, setTokens] = useState(null);
+  const [error, setError] = useState(null);
+  const [buttonToken] = useState(true);
 
   const handleLogin = () => {
     loginFunc({ email, password });
@@ -27,6 +32,46 @@ export default function Login({
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleLogin();
+    }
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    if (code) {
+      setAuthCode(code);
+      handleSubmitAuthCode(code);
+    }
+  }, []);
+
+  const handleGetAuthUrl = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/google/getAuthUrl"
+      );
+      window.location.href = response.data.url; // Redireciona para a URL de autenticação
+    } catch (error) {
+      console.error("Erro ao obter URL de autenticação:", error);
+      setError("Erro ao obter URL de autenticação");
+    }
+  };
+
+  const handleSubmitAuthCode = async (code = authCode) => {
+    try {
+      console.log("Enviando código:", code);
+      const response = await axios.post(
+        "http://localhost:3000/google/handleCallback",
+        { code }
+      );
+      setTokens(response.data);
+      console.log("Tokens recebidos:", response.data);
+      setError(null);
+    } catch (error) {
+      console.error("Erro ao processar código de autenticação:", error);
+      setError(
+        error.response?.data?.error ||
+          "Erro ao processar código de autenticação"
+      );
     }
   };
 
@@ -75,6 +120,30 @@ export default function Login({
         <div className="w-full">
           <ButtonGiveme buttonText="Login" onClick={handleLogin} />
         </div>
+        {buttonToken && (
+          <div>
+            <button onClick={handleGetAuthUrl}>
+              Iniciar Autenticação Google
+            </button>
+            <br />
+            <input
+              type="text"
+              value={authCode}
+              onChange={(e) => setAuthCode(e.target.value)}
+              placeholder="Código de autenticação"
+            />
+            <button onClick={() => handleSubmitAuthCode()}>
+              Enviar Código
+            </button>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+            {tokens && (
+              <div>
+                <h3>Tokens Recebidos:</h3>
+                <pre>{JSON.stringify(tokens, null, 2)}</pre>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );
