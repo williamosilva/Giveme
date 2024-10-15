@@ -1,4 +1,3 @@
-// React imports
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -22,7 +21,7 @@ export default function Login({
   const [password, setPassword] = useState("");
   const [authCode, setAuthCode] = useState("");
   const [tokens, setTokens] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null); // Modificado para aceitar string ou null
   const [buttonToken] = useState(true);
 
   const handleLogin = () => {
@@ -50,7 +49,8 @@ export default function Login({
         "http://localhost:3000/google/getAuthUrl"
       );
       window.location.href = response.data.url; // Redireciona para a URL de autenticação
-    } catch (error) {
+    } catch (error: any) {
+      // Modificado para tratar 'error' como 'any'
       console.error("Erro ao obter URL de autenticação:", error);
       setError("Erro ao obter URL de autenticação");
     }
@@ -66,10 +66,11 @@ export default function Login({
       setTokens(response.data);
       console.log("Tokens recebidos:", response.data);
       setError(null);
-    } catch (error) {
+    } catch (error: any) {
+      // Modificado para tratar 'error' como 'any'
       console.error("Erro ao processar código de autenticação:", error);
       setError(
-        error.response?.data?.error ||
+        error?.response?.data?.error ||
           "Erro ao processar código de autenticação"
       );
     }
