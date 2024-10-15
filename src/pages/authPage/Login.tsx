@@ -88,7 +88,7 @@ export default function Login({
         />
       </div>
       <div className="flex flex-col justify-start gap-3 mb-12">
-        <h1 className="sm:text-5xl text-5xl font-black text-neutral-900 ">
+        <h1 className="sm:text-6xl text-5xl font-black text-neutral-900 ">
           Login
         </h1>
         <div className="flex gap-1">

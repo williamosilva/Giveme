@@ -61,7 +61,7 @@ export default function Register({
           Register
         </h1>
         <div className="flex gap-1">
-          <p className="text-base text-neutral-40 0">Already registered?</p>
+          <p className="text-base text-neutral-400">Already registered?</p>
           <p
             className="text-base text-[#4747FF] font-bold tracking-tight cursor-pointer hover:underline"
             onClick={loginRedirect}
