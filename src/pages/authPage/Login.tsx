@@ -21,8 +21,8 @@ export default function Login({
   const [password, setPassword] = useState("");
   const [authCode, setAuthCode] = useState("");
   const [tokens, setTokens] = useState(null);
-  const [error, setError] = useState<string | null>(null); // Modificado para aceitar string ou null
-  const [buttonToken] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [buttonToken] = useState(false);
 
   const handleLogin = () => {
     loginFunc({ email, password });
@@ -58,13 +58,13 @@ export default function Login({
 
   const handleSubmitAuthCode = async (code = authCode) => {
     try {
-      console.log("Enviando código:", code);
+      // console.log("Enviando código:", code);
       const response = await axios.post(
         "http://localhost:3000/google/handleCallback",
         { code }
       );
       setTokens(response.data);
-      console.log("Tokens recebidos:", response.data);
+      // console.log("Tokens recebidos:", response.data);
       setError(null);
     } catch (error: any) {
       // Modificado para tratar 'error' como 'any'
