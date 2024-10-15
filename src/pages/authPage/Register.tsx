@@ -14,6 +14,7 @@ import VpnKeyRoundedIcon from "@mui/icons-material/VpnKeyRounded";
 export default function Register({
   loginRedirect,
   registerFunc,
+  isLoading,
 }: {
   loginRedirect: (event: React.MouseEvent<HTMLParagraphElement>) => void;
   registerFunc: ({
@@ -27,6 +28,7 @@ export default function Register({
     name: string;
     confirmpassword: string;
   }) => void;
+  isLoading: boolean;
 }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -97,7 +99,11 @@ export default function Register({
       </div>
       <div className="w-full h-full flex items-end">
         <div className="w-full">
-          <ButtonGiveme buttonText="Register" onClick={handleRegister} />
+          <ButtonGiveme
+            buttonText="Register"
+            onClick={handleRegister}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </section>

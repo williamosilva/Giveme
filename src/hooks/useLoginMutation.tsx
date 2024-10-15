@@ -25,9 +25,13 @@ interface LoginCredentials {
 export const useLoginMutation = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  return useMutation<LoginResponse, AxiosError<LoginError>, LoginCredentials>({
+  const mutation = useMutation<
+    LoginResponse,
+    AxiosError<LoginError>,
+    LoginCredentials
+  >({
     mutationFn: async (credentials) => {
       const response = await api.post<LoginResponse>(
         "/auth/login",
@@ -70,4 +74,10 @@ export const useLoginMutation = () => {
       }
     },
   });
+
+  return {
+    loginMutation: mutation.mutate,
+    isLoading: mutation.isLoading,
+    errorMessage,
+  };
 };

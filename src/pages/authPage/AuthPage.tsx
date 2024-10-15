@@ -22,6 +22,18 @@ import { useRegisterMutation } from "@hooks/useRegisterMutation";
 import WavingHandRoundedIcon from "@mui/icons-material/WavingHandRounded";
 import PriorityHighRoundedIcon from "@mui/icons-material/PriorityHighRounded";
 
+interface RegisterDataType {
+  name: string;
+  email: string;
+  password: string;
+  confirmpassword: string;
+}
+
+interface LoginDataType {
+  email: string;
+  password: string;
+}
+
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -29,8 +41,11 @@ export default function AuthPage() {
 
   const auth = useContext(AuthContext);
 
-  const { mutation: registerMutation, errorMessage: registerErrorMessage } =
-    useRegisterMutation();
+  const {
+    mutation: registerMutation,
+    errorMessage: registerErrorMessage,
+    isLoading: isLoadingRegister,
+  } = useRegisterMutation();
 
   useEffect(() => {
     if (auth?.justLoggedOut) {
@@ -51,7 +66,7 @@ export default function AuthPage() {
     setLoginError(null);
   };
 
-  const performRegister = (registerData: any) => {
+  const performRegister = (registerData: RegisterDataType) => {
     registerMutation.mutate(registerData, {
       onError: (error) => {
         setRegisterError(
@@ -59,12 +74,17 @@ export default function AuthPage() {
         );
       },
     });
+    console.log("registerData", registerData);
   };
 
-  const { mutate: handleLogin, error: loginMutationError } = useLoginMutation();
+  const {
+    loginMutation,
+    isLoading: isLoadingLogin,
+    errorMessage,
+  } = useLoginMutation();
 
-  const performLogin = (loginData: any) => {
-    handleLogin(loginData, {
+  const performLogin = (loginData: LoginDataType) => {
+    loginMutation(loginData, {
       onError: (error) => {
         setLoginError(error.response?.data?.erro || "Erro ao fazer login");
       },
@@ -72,12 +92,10 @@ export default function AuthPage() {
   };
 
   useEffect(() => {
-    if (loginMutationError) {
-      setLoginError(
-        loginMutationError.response?.data?.erro || "Erro ao fazer login"
-      );
+    if (errorMessage) {
+      setLoginError(errorMessage || "Erro ao fazer login");
     }
-  }, [loginMutationError]);
+  }, [errorMessage]);
 
   useEffect(() => {
     if (registerErrorMessage) {
@@ -127,9 +145,9 @@ export default function AuthPage() {
         }
       />
 
-      <div className="flex flex-col h-fullitems-center ">
+      <div className="flex flex-col h-full items-center ">
         <div className="h-full flex items-center">
-          <main className="lg:w-[1000px]  sm:w-[600px] w-[400px] relative h-[700px] gap-0 p-3 bg-white flex items-center justify-center rounded-3xl shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px]">
+          <main className="lg:w-[1000px]  sm:w-[600px] w-[400px] relative  h-[700px]  gap-0 p-3 bg-white flex items-center justify-center rounded-3xl shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px]">
             <div className="relative lg:w-[50%] w-full h-full">
               <div
                 className={`absolute inset-0 transition-all duration-300 ${
@@ -142,6 +160,7 @@ export default function AuthPage() {
                 <Login
                   registerRedirect={handleClick}
                   loginFunc={performLogin}
+                  isLoading={isLoadingLogin}
                 />
               </div>
               <div
@@ -155,6 +174,7 @@ export default function AuthPage() {
                 <Register
                   loginRedirect={handleClick}
                   registerFunc={performRegister}
+                  isLoading={isLoadingRegister}
                 />
               </div>
             </div>
@@ -163,7 +183,7 @@ export default function AuthPage() {
               <img src={Background} className="object-cover h-full w-full" />
             </section>
 
-            <section className="absolute  flex lg:top-16 lg:left-[36.2%]   sm:top-16 sm:right-16 top-8 right-6 transform[translate(-50%, -50%)]">
+            <section className="absolute  flex lg:top-16 lg:left-[34.8%]   sm:top-16 sm:right-16 top-8 right-6 transform[translate(-50%, -50%)]">
               <div className="flex flex-col justify-center">
                 <p className="text-base text-neutral-400">Need Help?</p>
                 <a
@@ -186,7 +206,7 @@ export default function AuthPage() {
             </section>
           </main>
         </div>
-        <div className=" flex-col flex justify-end pb-6">
+        <div className=" flex-col flex justify-end pb-2 lg:pt-6 pt-10 lg:pb-6">
           <Footer />
         </div>
       </div>

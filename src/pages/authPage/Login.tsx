@@ -13,9 +13,11 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 export default function Login({
   registerRedirect,
   loginFunc,
+  isLoading,
 }: {
   registerRedirect: (event: React.MouseEvent<HTMLParagraphElement>) => void;
   loginFunc: ({ email, password }: { email: string; password: string }) => void;
+  isLoading: boolean;
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -86,7 +88,7 @@ export default function Login({
         />
       </div>
       <div className="flex flex-col justify-start gap-3 mb-12">
-        <h1 className="sm:text-6xl text-5xl font-black text-neutral-900">
+        <h1 className="sm:text-5xl text-5xl font-black text-neutral-900 ">
           Login
         </h1>
         <div className="flex gap-1">
@@ -119,7 +121,11 @@ export default function Login({
       </div>
       <div className="w-full h-full flex items-end">
         <div className="w-full">
-          <ButtonGiveme buttonText="Login" onClick={handleLogin} />
+          <ButtonGiveme
+            buttonText="Login"
+            onClick={handleLogin}
+            isLoading={isLoading}
+          />
         </div>
         {buttonToken && (
           <div>

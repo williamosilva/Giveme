@@ -17,6 +17,14 @@ import { useNavigate } from "react-router-dom";
 // Hook imports
 import { useGetUserById } from "@hooks/useGetList";
 
+interface LinkType {
+  fileName: string;
+  fileId: string;
+  uploadDate: string;
+  link: string;
+  _id: string;
+}
+
 export default function LinkListing() {
   const navigate = useNavigate();
   const storedUserId = localStorage.getItem("userId") ?? "";
@@ -25,7 +33,12 @@ export default function LinkListing() {
     "success"
   );
 
-  const { data: list, refetch, isFetching } = useGetUserById(storedUserId);
+  const {
+    data: list,
+    refetch,
+    isFetching,
+    isLoading,
+  } = useGetUserById(storedUserId);
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
@@ -107,19 +120,22 @@ export default function LinkListing() {
           <div></div>
         </div>
 
-        {list && list.length > 0 ? (
+        {/* Condição de loading */}
+        {isLoading ? (
+          <div className=" inset-0 flex w-full h-full items-center justify-center">
+            <div className="w-12 h-12 border-t-2 border-white border-solid rounded-full animate-spin"></div>
+          </div>
+        ) : list && list.length > 0 ? (
           <div className="w-full flex flex-col h-[100%] items-center justify-center gap-6 md:p-0 px-4">
-            <>
-              {list.map((link: any) => (
-                <CardLink
-                  key={link._id}
-                  link={link.link}
-                  date={formatDate(link.uploadDate)}
-                  fileId={link.fileId}
-                  onDeleteSuccess={refetchList}
-                />
-              ))}
-            </>
+            {list.map((link: LinkType) => (
+              <CardLink
+                key={link._id}
+                link={link.link}
+                date={formatDate(link.uploadDate)}
+                fileId={link.fileId}
+                onDeleteSuccess={refetchList}
+              />
+            ))}
           </div>
         ) : (
           <div className="w-full flex justify-center items-center">

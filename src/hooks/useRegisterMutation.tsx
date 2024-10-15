@@ -77,5 +77,9 @@ export const useRegisterMutation = () => {
     },
   });
 
-  return { mutation, errorMessage };
+  return {
+    mutation,
+    errorMessage,
+    isLoading: mutation.isLoading,
+  };
 };
