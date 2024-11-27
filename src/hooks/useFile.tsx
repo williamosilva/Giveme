@@ -20,15 +20,13 @@ interface UploadResponse {
   };
 }
 
-// Hook for Upload
 const uploadFile = async ({
   file,
 }: UploadFileParams): Promise<UploadResponse> => {
   const formData = new FormData();
   formData.append("file", file);
 
-  // The token refresh logic is handled in the API service,
-  // so we can just call the API directly.
+  // A chamada para a API, lidando com upload
   const response = await api.post<UploadResponse>("/file/upload", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -47,9 +45,14 @@ export const useUploadFile = () => {
       return uploadResponse;
     } catch (error: any) {
       if (error.response) {
-        const errorMessage = error.response.data.Erro || "Unknown error";
-        throw new Error(errorMessage);
+        // Acesse a mensagem de erro do backend, se disponível
+        const backendErrorMessage =
+          error.response.data.error ||
+          error.response.data.message ||
+          "Unknown error";
+        throw new Error(backendErrorMessage);
       }
+      // Caso não tenha uma resposta do servidor
       throw error;
     }
   };

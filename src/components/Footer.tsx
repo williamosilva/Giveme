@@ -14,7 +14,7 @@ export default function Footer() {
   return (
     <footer className="relative w-full h-fit justify-center items-end flex">
       <div className="relative flex flex-col items-center">
-        <div className="w-52 z-[1] h-fit opacity-30 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[120%]">
+        <div className="w-52 z-[1] h-fit opacity-30 absolute top-[52%] left-1/2 transform -translate-x-1/2 -translate-y-[120%]">
           <img
             draggable={false}
             src={CreatedText}
@@ -36,46 +36,40 @@ export default function Footer() {
               className="w-9 h-9 rounded-xl shadow p-2 relative"
               onMouseEnter={() => setHoveredIcon(icon.name)}
               onMouseLeave={() => setHoveredIcon(null)}
+              onClick={() => window.open(icon.url, "_blank")}
             >
-              <a
-                href={icon.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full h-full"
-              >
-                <img
-                  src={
-                    icon.name === "linkedin"
-                      ? linkedin
-                      : icon.name === "github"
-                      ? github
-                      : william
-                  }
-                  alt={icon.name.charAt(0).toUpperCase() + icon.name.slice(1)}
-                  className={`absolute h-[55%] object-contain transition-opacity duration-300 ${
-                    hoveredIcon === icon.name ? "opacity-0" : "opacity-100"
-                  }`}
-                />
-                <img
-                  src={
-                    icon.name === "linkedin"
-                      ? linkedin_w
-                      : icon.name === "github"
-                      ? github_w
-                      : william_w
-                  }
-                  alt={`${
-                    icon.name.charAt(0).toUpperCase() + icon.name.slice(1)
-                  } Hovered`}
-                  className={`absolute h-[55%] object-contain transition-opacity duration-300 ${
-                    hoveredIcon === icon.name ? "opacity-100" : "opacity-0"
-                  }`}
-                />
-              </a>
+              <img
+                src={
+                  icon.name === "linkedin"
+                    ? linkedin
+                    : icon.name === "github"
+                    ? github
+                    : william
+                }
+                alt={icon.name.charAt(0).toUpperCase() + icon.name.slice(1)}
+                className={`absolute h-[55%] object-contain transition-opacity duration-300 ${
+                  hoveredIcon === icon.name ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <img
+                src={
+                  icon.name === "linkedin"
+                    ? linkedin_w
+                    : icon.name === "github"
+                    ? github_w
+                    : william_w
+                }
+                alt={`${
+                  icon.name.charAt(0).toUpperCase() + icon.name.slice(1)
+                } Hovered`}
+                className={`absolute h-[55%] object-contain transition-opacity duration-300 ${
+                  hoveredIcon === icon.name ? "opacity-100" : "opacity-0"
+                }`}
+              />
             </li>
           ))}
         </ul>
-        <p className="text-[#8787fa] text-sm font-regular mt-4 select-none">
+        <p className="text-[#8787fa] text-sm font-regular mt-3 select-none">
           © 2024 Giveme
         </p>
       </div>

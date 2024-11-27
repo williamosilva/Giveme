@@ -79,7 +79,7 @@ function AppRoutes() {
 function App() {
   return (
     <AuthProvider>
-      <div className="relative flex w-full h-full justify-center items-center overflow-hidden">
+      <div className="relative flex w-full h-full justify-center items-center overflow-y-auto">
         <div className="relative z-10 w-full h-full flex justify-center items-center">
           <Router>
             <AppRoutes />

@@ -75,17 +75,25 @@ export default function Form() {
     data,
     isSuccess,
     reset,
+    error: uploadMutationError,
   } = useUploadFile();
 
   const handleFileUpload = async (file: File) => {
+    setUploadError(null); // Limpa o erro antes de tentar o upload
     try {
       await uploadAndCreateUrl({ file });
-      // console.log("Upload concluído e URL pública gerada:", result);
-    } catch (err: string | any) {
+      console.log("Upload concluído e URL pública gerada:", data);
+    } catch (err: any) {
       console.error("Erro durante o processo:", err);
       setUploadError(err.message || "Erro desconhecido");
     }
   };
+
+  useEffect(() => {
+    if (uploadMutationError) {
+      setUploadError(uploadMutationError.message || "Erro desconhecido");
+    }
+  }, [uploadMutationError]);
 
   useEffect(() => {
     if (auth?.justLoggedIn) {

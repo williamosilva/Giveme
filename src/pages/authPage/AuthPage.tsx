@@ -145,9 +145,9 @@ export default function AuthPage() {
         }
       />
 
-      <div className="flex flex-col h-full items-center ">
-        <div className="h-full flex items-center">
-          <main className="lg:w-[1000px]  sm:w-[600px] w-[400px] relative  h-[700px]  gap-0 p-3 bg-white flex items-center justify-center rounded-3xl shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px]">
+      <div className="flex flex-col h-full items-center md:gap-0 gap-14 w-full ">
+        <div className="h-full flex items-center w-full justify-center">
+          <main className="2xl:w-[840px] 2xl:h-[620px]  lg:w-[840px] md:w-[540px] md:h-[620px] md:mt-0 mt-8 transition-all duration-300 ease-in  sm:w-[90%] w-[90%] relative  h-[700px]  gap-0 p-4 bg-white flex items-center justify-center rounded-3xl shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px]">
             <div className="relative lg:w-[50%] w-full h-full">
               <div
                 className={`absolute inset-0 transition-all duration-300 ${
@@ -183,7 +183,7 @@ export default function AuthPage() {
               <img src={Background} className="object-cover h-full w-full" />
             </section>
 
-            <section className="absolute  flex lg:top-16 lg:left-[34.8%]   sm:top-16 sm:right-16 top-8 right-6 transform[translate(-50%, -50%)]">
+            <section className="absolute flex lg:top-10 lg:left-[33.6%] 2xl:top-10  2xl:left-[33.6%] sm:top-10 sm:right-12 top-8 right-6 transform[translate(-50%, -50%)]">
               <div className="flex flex-col justify-center">
                 <p className="text-base text-neutral-400">Need Help?</p>
                 <a
@@ -206,7 +206,7 @@ export default function AuthPage() {
             </section>
           </main>
         </div>
-        <div className=" flex-col flex justify-end pb-2 lg:pt-6 pt-10 lg:pb-6">
+        <div className=" flex-col flex justify-end my-auto md:pb-6 pb-10">
           <Footer />
         </div>
       </div>

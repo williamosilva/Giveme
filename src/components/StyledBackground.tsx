@@ -7,7 +7,7 @@ import shape2 from "../assets/shape2.png";
 export default function StyledBackground() {
   return (
     <>
-      <div className="w-full h-full  absolute opacity-50 ">
+      <div className="w-full h-full  absolute opacity-50 overflow-hidden ">
         <span className=" blur-background w-[30vw] h-[30vw] rounded-full absolute animate-grow"></span>
         <span className=" blur-background2 w-[40vw] h-[40vw] rounded-full absolute animate-grow"></span>
         <span className=" blur-background3 w-[50vw] h-[50vw] rounded-full absolute  animate-grow"></span>

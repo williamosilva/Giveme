@@ -46,7 +46,7 @@ export default function Register({
   };
 
   return (
-    <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between sm:p-12 p-5">
+    <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between p-6">
       <div className="h-full flex items-start w-full">
         <div className=" w-20 h-20 rounded-xl items-center flex justify-center text-white font-medium">
           <img
@@ -57,7 +57,7 @@ export default function Register({
         </div>
       </div>
       <div className="flex flex-col justify-start gap-3 h-full w-full">
-        <h1 className="sm:text-6xl  text-5xl font-black text-neutral-900">
+        <h1 className="sm:text-6xl  text-5xl font-black text-neutral-800">
           Register
         </h1>
         <div className="flex gap-1">

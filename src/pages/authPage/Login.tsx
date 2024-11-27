@@ -79,7 +79,7 @@ export default function Login({
   };
 
   return (
-    <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between sm:p-12 p-5">
+    <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between p-6  ">
       <div className=" w-20 h-20 rounded-xl items-center flex justify-center text-white font-medium">
         <img
           src={Logo}
@@ -88,7 +88,7 @@ export default function Login({
         />
       </div>
       <div className="flex flex-col justify-start gap-3 mb-12">
-        <h1 className="sm:text-6xl text-5xl font-black text-neutral-900 ">
+        <h1 className="sm:text-6xl text-5xl font-black text-neutral-800 ">
           Login
         </h1>
         <div className="flex gap-1">
