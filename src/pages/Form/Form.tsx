@@ -43,7 +43,7 @@ const allowedFileTypes = [
   "application/pdf",
 ];
 
-const getFileIcon = (fileType: any) => {
+const getFileIcon = (fileType: string) => {
   switch (fileType) {
     case "image/jpeg":
       return jpg;
@@ -82,16 +82,25 @@ export default function Form() {
     setUploadError(null); // Limpa o erro antes de tentar o upload
     try {
       await uploadAndCreateUrl({ file });
-      console.log("Upload concluído e URL pública gerada:", data);
-    } catch (err: any) {
-      console.error("Erro durante o processo:", err);
-      setUploadError(err.message || "Erro desconhecido");
+      // console.log("Upload concluído e URL pública gerada:", data);
+    } catch (err: unknown) {
+      // Tipando como 'unknown'
+      if (err instanceof Error) {
+        console.error("Erro durante o processo:", err);
+        setUploadError(err.message || "Erro desconhecido");
+      } else {
+        console.error("Erro desconhecido:", err);
+        setUploadError("Erro desconhecido");
+      }
     }
   };
 
   useEffect(() => {
     if (uploadMutationError) {
-      setUploadError(uploadMutationError.message || "Erro desconhecido");
+      setUploadError(
+        (uploadMutationError as { message?: string }).message ||
+          "Erro desconhecido"
+      );
     }
   }, [uploadMutationError]);
 
@@ -118,7 +127,7 @@ export default function Form() {
     }
   }, [isSuccess, data]);
 
-  const handleFileChange = (selectedFile: any) => {
+  const handleFileChange = (selectedFile: File | null) => {
     if (isSuccess) {
       setInputValue("");
       reset();
@@ -351,7 +360,7 @@ export default function Form() {
                     <div className="flex items-center gap-4 w-0 flex-grow min-w-0">
                       <div className="w-8 h-8 flex-shrink-0 pointer-events-none ">
                         <img
-                          src={getFileIcon(file?.type)}
+                          src={getFileIcon(file?.type || "")}
                           className="w-full object-contain"
                           alt="File type icon"
                         />
