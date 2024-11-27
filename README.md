@@ -1,50 +1,41 @@
-# React + TypeScript + Vite
+# Giveme - Compartilhamento Rápido e Seguro de Arquivos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Período de Desenvolvimento:** Ago 2024 - Out 2024  
 
-Currently, two official plugins are available:
+O projeto **Giveme** foi desenvolvido para atender à necessidade de **compartilhamento rápido e seguro de arquivos**, com foco em integração eficiente entre o front-end e o back-end. A aplicação apresenta um back-end robusto e RESTful, aliado a um front-end responsivo e intuitivo, permitindo uma experiência simples e confiável para os usuários.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+- **React.js**: Biblioteca para construção de interfaces de usuário.
+- **React Query**: Gerenciamento eficiente de estados e dados assíncronos.
+- **Material UI**: Componentes prontos para uma UI acessível e moderna.
+- **Axios**: Requisições HTTP para integração com a API.
+- **TypeScript**: Tipagem estática para maior confiabilidade no código.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 🌐 URL de Produção
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+O projeto pode ser acessado no seguinte endereço:  
+**[giveme-six.vercel.app](https://giveme-six.vercel.app/)**
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE). 
+
+---
+
+## 📧 Contato
+
+Para dúvidas ou sugestões, entre em contato:  
+**Email**: williamsilva20062005@gmail.com  
+**Telefone**: (19) 98224-9290
+
+---
+
+Made with ❤️ by **William Silva**.
