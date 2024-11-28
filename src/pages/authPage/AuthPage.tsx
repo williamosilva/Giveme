@@ -74,7 +74,7 @@ export default function AuthPage() {
         );
       },
     });
-    console.log("registerData", registerData);
+    // console.log("registerData", registerData);
   };
 
   const {

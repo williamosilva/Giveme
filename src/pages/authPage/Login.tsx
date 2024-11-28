@@ -79,7 +79,7 @@ export default function Login({
   };
 
   return (
-    <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between p-6  ">
+    <section className="w-[100%] relative h-full grid grid-rows-4 grid-cols-1 items-start justify-between p-0 sm:p-6  ">
       <div className=" w-20 h-20 rounded-xl items-center flex justify-center text-white font-medium">
         <img
           src={Logo}
