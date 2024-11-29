@@ -303,7 +303,7 @@ export default function Form() {
 
             <div
               className={`relative 
-                overflow-hidden  
+           
                 transition-all duration-300 ease-out  sm:w-[637px]    
                 w-full
 
@@ -314,6 +314,7 @@ export default function Form() {
                 <React.Fragment>
                   <div
                     className={`
+                           overflow-hidden  
                w-full gap-10 flex absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] transition-all duration-1000 ease-in-out p-5
                ${
                  !isSuccess
