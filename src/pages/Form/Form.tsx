@@ -302,15 +302,15 @@ export default function Form() {
             <FileUpload onFileChange={handleFileChange} />
 
             <div
-              className={`relative 
-           
-                transition-all duration-300 ease-out  sm:w-[637px]    
-                w-full
-
+              className={`relative transition-all duration-300 ease-out  sm:w-[637px] w-full
                   ${file ? "h-[80px]" : "h-[0px]"}
               `}
             >
-              <Box className="boxFile h-full relative border-[1px] shadow w-full  border-white flex justify-center items-center">
+              <Box
+                className={`
+                  ${file ? "border-[1px] " : "border-[0px] py-0"}
+                  boxFile h-full relative shadow w-full  border-white flex justify-center items-center transition-all duration-300 ease-in-out`}
+              >
                 <React.Fragment>
                   <div
                     className={`
