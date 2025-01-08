@@ -187,7 +187,7 @@ export default function AuthPage() {
               <div className="flex flex-col justify-center">
                 <p className="text-base text-neutral-400">Need Help?</p>
                 <a
-                  href="https://williamoliveirasilva.online/"
+                  href="https://williamsilva.dev/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
