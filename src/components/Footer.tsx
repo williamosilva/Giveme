@@ -28,8 +28,8 @@ export default function Footer() {
               name: "linkedin",
               url: "https://www.linkedin.com/in/williamsilva2005/",
             },
-            { name: "github", url: "https://github.com/WilliamSilvaOliveiraa" },
-            { name: "william", url: "https://williamoliveirasilva.online/" },
+            { name: "github", url: "https://github.com/williamosilva" },
+            { name: "william", url: "https://williamsilva.dev/" },
           ].map((icon) => (
             <li
               key={icon.name}
